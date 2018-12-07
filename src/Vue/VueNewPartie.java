@@ -1,5 +1,8 @@
 package Vue;
 
+
+import Controller.ControllerVueNewPartie;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -33,6 +36,8 @@ public class VueNewPartie extends JPanel {
 
         JButton launch = new JButton("Lancer la partie");
         JButton retour = new JButton("Retour");
+        launch.addActionListener(new ControllerVueNewPartie("lancer",this));
+        retour.addActionListener(new ControllerVueNewPartie("retour",this));
 
         sud.setLayout(new GridLayout(1,2,100,100));
         sud.add(launch);

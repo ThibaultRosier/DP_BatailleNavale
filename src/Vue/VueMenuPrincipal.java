@@ -1,5 +1,7 @@
 package Vue;
 
+import Controller.ControllerVueMenu;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -10,7 +12,11 @@ public class VueMenuPrincipal extends JPanel {
 
         JButton newPartie = new JButton("Nouvelle Partie");
         JButton loadPartie = new JButton("Charger Partie");
-        JButton Quit = new JButton("Quitter");
+        JButton quit = new JButton("Quitter");
+
+        newPartie.addActionListener(new ControllerVueMenu("newPartie",this));
+        loadPartie.addActionListener(new ControllerVueMenu("load",this));
+        quit.addActionListener(new ControllerVueMenu("quit",this));
 
         newPartie.setPreferredSize(new Dimension(200,50));
         newPartie.setSize(new Dimension(200,50));
@@ -19,7 +25,7 @@ public class VueMenuPrincipal extends JPanel {
 
         add(newPartie);
         add(loadPartie);
-        add(Quit);
+        add(quit);
 
         setVisible(true);
     }
