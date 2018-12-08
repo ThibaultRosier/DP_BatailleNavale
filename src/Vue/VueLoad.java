@@ -43,7 +43,7 @@ public class VueLoad extends JPanel {
         int size = lesSauvegardes.size();
         for(int index=0; index<size; index++)
         {
-            listModel.addElement(lesSauvegardes.get(index).getNom()+"        "+lesSauvegardes.get(index).getEpoque()+"       "+lesSauvegardes.get(index).getTypePartie()+"         "+lesSauvegardes.get(index).getDate());
+            listModel.addElement(lesSauvegardes.get(index));
         }
 
         //Donné le model à la liste

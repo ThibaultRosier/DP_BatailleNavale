@@ -6,6 +6,7 @@ import Model.Sauvegarde;
 import javax.swing.*;
 import java.awt.*;
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class VueSave extends JPanel {
@@ -26,15 +27,12 @@ public class VueSave extends JPanel {
         saveLabel.setFont(new Font("Sans Serif", Font.PLAIN, 20));
 
         JButton newSave = new JButton("Nouvelle Sauvegarde");
-        newSave.addActionListener(new ControllerVueSave("newSave",this));
 
         nord.add(saveLabel);
         nord.add(newSave);
 
         JButton save = new JButton("Sauvegarder");
         JButton retour = new JButton("Retour");
-        save.addActionListener(new ControllerVueSave("save",this));
-        retour.addActionListener(new ControllerVueSave("retour",this));
 
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new BoxLayout(buttonPanel,BoxLayout.LINE_AXIS));
@@ -42,18 +40,22 @@ public class VueSave extends JPanel {
         buttonPanel.add(retour);
 
         JList liste = new JList();
-
         DefaultListModel listModel = new DefaultListModel();
 
         //Remplir le model
         int size = lesSauvegardes.size();
         for(int index=0; index<size; index++)
         {
-            listModel.addElement(lesSauvegardes.get(index).getNom());
+            listModel.addElement(lesSauvegardes.get(index));
         }
 
         //Donné le model à la liste
         liste.setModel(listModel);
+
+        newSave.addActionListener(new ControllerVueSave("newSave",this,liste));
+        save.addActionListener(new ControllerVueSave("save",this,liste));
+        retour.addActionListener(new ControllerVueSave("retour",this,liste));
+
 
         JScrollPane js = new JScrollPane(liste);
         js.createVerticalScrollBar();
@@ -73,7 +75,15 @@ public class VueSave extends JPanel {
         listefichiers=repertoire.list();
         for(i=0;i<listefichiers.length;i++){
             if(listefichiers[i].endsWith(".save")){
-                lesSauvegardes.add(new Sauvegarde(listefichiers[i].substring(0,listefichiers[i].length()-5)));
+                try {
+                    if(Sauvegarde.deSerialize(listefichiers[i].substring(0, listefichiers[i].length() - 5))!= null) {
+                        lesSauvegardes.add(Sauvegarde.deSerialize(listefichiers[i].substring(0, listefichiers[i].length() - 5)));
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (ClassNotFoundException e) {
+                    e.printStackTrace();
+                }
             }
         }
     }

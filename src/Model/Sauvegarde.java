@@ -2,6 +2,8 @@ package Model;
 
 import javax.swing.*;
 import java.io.*;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 public class Sauvegarde implements Serializable{
@@ -9,17 +11,24 @@ public class Sauvegarde implements Serializable{
     private String nom;
     private String epoque;
     private String typePartie;
-    private String date;
+    private Date date;
 
-    public Sauvegarde(String nom, String epoque, String typePartie, String date) {
+    public Sauvegarde(String nom, String epoque, String typePartie) {
         this.nom = nom;
         this.epoque = epoque;
         this.typePartie = typePartie;
-        this.date = date;
+        this.date = Calendar.getInstance().getTime();
     }
 
     public Sauvegarde(String nom) {
         this.nom = nom;
+    }
+
+    public Sauvegarde(Sauvegarde s) {
+        this.nom = s.nom;
+        this.epoque = s.epoque;
+        this.typePartie = s.typePartie;
+        this.date = Calendar.getInstance().getTime();
     }
 
     public String getNom() {
@@ -34,8 +43,14 @@ public class Sauvegarde implements Serializable{
         return typePartie;
     }
 
-    public String getDate() {
+    public Date getDate() {
         return date;
+    }
+
+    @Override
+    public String toString() {
+        return nom+"        "+epoque+"      "+typePartie+"        "+ new SimpleDateFormat("dd-MM-yyyy        HH:mm:ss").format(date);
+
     }
 
     public void serialize(String name) throws IOException {
@@ -62,5 +77,6 @@ public class Sauvegarde implements Serializable{
         //System.out.println(m) ;
 
     }
+
 
 }

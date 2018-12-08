@@ -5,6 +5,7 @@ import Model.Sauvegarde;
 import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
+import java.util.Date;
 
 public class VueFenetre extends JFrame {
 
@@ -19,9 +20,9 @@ public class VueFenetre extends JFrame {
 
 
         //test save
-        Sauvegarde s = new Sauvegarde("test","X siecle","master","13/01/1994");
+        Sauvegarde s = new Sauvegarde("test","X siecle","master");
         try {
-            s.serialize("maSave");
+            s.serialize("test");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -31,7 +32,7 @@ public class VueFenetre extends JFrame {
         setLayout(new GridBagLayout());
         gbc=new GridBagConstraints(0,0,2,1,0.25,0,GridBagConstraints.PAGE_START,GridBagConstraints.VERTICAL,new Insets(1,1,1,1), 0,0);
 
-        vueActu = new VueSave();
+        vueActu = new VueOption();
 
         JLabel titre = new JLabel("Master and Commander");
         titre.setFont(new Font("Sans Serif", Font.PLAIN, 30));
@@ -65,6 +66,10 @@ public class VueFenetre extends JFrame {
 
             case "vueSave":
                 vueActu = new VueSave();
+                break;
+
+            case "vueOption":
+                vueActu = new VueOption();
                 break;
 
             default:

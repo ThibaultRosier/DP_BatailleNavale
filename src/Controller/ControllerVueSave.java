@@ -1,21 +1,26 @@
 package Controller;
 
+import Model.Sauvegarde;
 import Vue.DialogNewSave;
 import Vue.VueFenetre;
+import Vue.VueSave;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 public class ControllerVueSave implements ActionListener {
 
     private String ope;
     private JPanel jp;
+    private JList liste;
 
-    public ControllerVueSave(String ope, JPanel jp){
+    public ControllerVueSave(String ope, JPanel jp, JList liste){
         this.ope = ope;
         this.jp = jp;
+        this.liste = liste;
     }
 
 
@@ -29,11 +34,22 @@ public class ControllerVueSave implements ActionListener {
 
         switch(ope){
             case "save":
+                if(!liste.isSelectionEmpty()){
+                    Sauvegarde s = new Sauvegarde((Sauvegarde) liste.getSelectedValue());
+                    try {
+                        s.serialize(((Sauvegarde)liste.getSelectedValue()).getNom());
+                    } catch (IOException e1) {
+                        e1.printStackTrace();
+                    }
+                }
+                else{
+                    JOptionPane.showMessageDialog(frame, "Aucune sauvegarde selectionnée");
+                }
 
                 break;
 
             case "retour":
-                frame.changerPanel("vueMenuPrincipal");
+                frame.changerPanel("vueOption");
                 break;
 
             case "newSave":
