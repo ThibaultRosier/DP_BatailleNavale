@@ -32,7 +32,7 @@ public class VueFenetre extends JFrame {
         setLayout(new GridBagLayout());
         gbc=new GridBagConstraints(0,0,2,1,0.25,0,GridBagConstraints.PAGE_START,GridBagConstraints.VERTICAL,new Insets(1,1,1,1), 0,0);
 
-        vueActu = new VueOption();
+        vueActu = new VueMenuPrincipal();
 
         JLabel titre = new JLabel("Master and Commander");
         titre.setFont(new Font("Sans Serif", Font.PLAIN, 30));
