@@ -115,4 +115,11 @@ public class Partie implements Serializable {
 		return string;
 	}
 
+	public static void main(String [] args){
+		Partie partie = new Partie();
+		partie.remplirCampXVI();
+		System.out.println(partie);
+
+	}
+
 }

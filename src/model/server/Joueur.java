@@ -47,7 +47,11 @@ public class Joueur implements Serializable{
         for(int i = 0; i < Camp.HAUTEUR_CAMP ; i++){
             for(int j = 0; j < Camp.LARGEUR_CAMP ; j++){
                 if(camp[i][j].getBatiment() != null){
-                    string+="B";
+                    if(camp[i][j].estUneCaseDebutBatiment() ){
+                        string += "D";
+                    }else {
+                        string += "B";
+                    }
                 }else{
                     string+="O";
                 }

@@ -3,7 +3,7 @@ package model.server.batiment;
 import model.server.Case;
 import model.server.Joueur;
 
-public abstract class Batiment {
+public abstract class Batiment implements Cloneable {
 	
 	protected int tirRestant;
 	protected int nbTire;
@@ -35,7 +35,7 @@ public abstract class Batiment {
 	}
 
 
-    public Object clone() {
+    public Batiment clone() {
         Object o = null;
         try {
             // On récupère l'instance à renvoyer par l'appel de la
@@ -47,7 +47,7 @@ public abstract class Batiment {
             cnse.printStackTrace(System.err);
         }
         // on renvoie le clone
-        return o;
+        return (Batiment) o;
     }
 
 

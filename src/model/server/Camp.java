@@ -16,9 +16,9 @@ public class Camp {
     public final static int LARGEUR_CAMP = 10;
     public final static int HAUTEUR_CAMP = 10;
 
-    private final static int NOMBRE_GRAND = 2;
-    private final static int NOMBRE_MOYEN = 3;
-    private final static int NOMBRE_PETIT = 6;
+    private final static int NOMBRE_GRAND = 1;
+    private final static int NOMBRE_MOYEN = 1;
+    private final static int NOMBRE_PETIT = 1;
 
     private Case[][] camp;
     private Random random ;
@@ -30,15 +30,15 @@ public class Camp {
         random = new Random();
         ArrayList<Batiment> lesBatiments = new ArrayList<Batiment>();
         for(int i = 0; i < NOMBRE_GRAND ; i++){
-            lesBatiments.add((GrandBatiment)gb.clone());
+            lesBatiments.add(gb.clone());
         }
 
         for(int i = 0; i < NOMBRE_MOYEN ; i++){
-            lesBatiments.add((MoyenBatiment)gb.clone());
+            lesBatiments.add(gb.clone());
         }
 
         for(int i = 0; i < NOMBRE_PETIT ; i++){
-            lesBatiments.add((PetitBatiment)gb.clone());
+            lesBatiments.add(gb.clone());
         }
 
         remplirCamp(lesBatiments);
