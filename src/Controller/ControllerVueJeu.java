@@ -1,43 +1,41 @@
 package Controller;
 
 import vue.VueFenetre;
+import vue.VueJeu;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class ControllerVueLoad implements ActionListener {
+public class ControllerVueJeu implements ActionListener {
 
+    private JPanel vueJeu;
     private String ope;
-    private JPanel jp;
 
-    public ControllerVueLoad(String ope, JPanel jp){
+    public ControllerVueJeu(String ope, VueJeu vueJeu) {
+        this.vueJeu = vueJeu;
         this.ope = ope;
-        this.jp = jp;
     }
-
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        Window window = SwingUtilities.windowForComponent(jp);
+        Window window = SwingUtilities.windowForComponent(vueJeu);
         VueFenetre frame = null;
         if (window instanceof JFrame) {
             frame = (VueFenetre) window;
         }
-
         switch(ope){
-            case "charger":
+            case "tirer":
 
                 break;
 
-            case "retour":
-                frame.changerPanel("vueMenuPrincipal");
+            case "option":
+                frame.changerPanel("vueOption");
                 break;
 
             default:
         }
-
 
     }
 }

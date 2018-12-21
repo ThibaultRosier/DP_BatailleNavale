@@ -1,7 +1,6 @@
-package model.server.batiment.xviSiecle;
+package Model.server.batiment.xviSiecle;
 
-import model.server.Joueur;
-import model.server.batiment.PetitBatiment;
+import Model.server.batiment.PetitBatiment;
 
 public class Gabare extends PetitBatiment {
 

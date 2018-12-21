@@ -1,6 +1,6 @@
 package Controller;
 
-import model.server.Sauvegarde;
+import Model.server.Sauvegarde;
 
 import javax.swing.*;
 import java.awt.*;

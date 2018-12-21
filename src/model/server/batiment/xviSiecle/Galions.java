@@ -1,7 +1,6 @@
-package model.server.batiment.xviSiecle;
+package Model.server.batiment.xviSiecle;
 
-import model.server.Joueur;
-import model.server.batiment.GrandBatiment;
+import Model.server.batiment.GrandBatiment;
 
 public class Galions extends GrandBatiment {
 

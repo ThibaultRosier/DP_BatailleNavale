@@ -1,6 +1,6 @@
-package model.server;
+package Model.server;
 
-import model.server.batiment.Batiment;
+import Model.server.batiment.Batiment;
 
 import java.io.Serializable;
 

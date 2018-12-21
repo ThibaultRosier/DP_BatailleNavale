@@ -1,12 +1,9 @@
-package model.server;
+package Model.server;
 
-import model.server.batiment.Batiment;
-import model.server.batiment.GrandBatiment;
-import model.server.batiment.MoyenBatiment;
-import model.server.batiment.PetitBatiment;
-import model.server.batiment.xviSiecle.Flute;
-import model.server.batiment.xviSiecle.Gabare;
-import model.server.batiment.xviSiecle.Galions;
+import Model.server.batiment.Batiment;
+import Model.server.batiment.GrandBatiment;
+import Model.server.batiment.MoyenBatiment;
+import Model.server.batiment.PetitBatiment;
 
 import java.util.ArrayList;
 import java.util.Random;

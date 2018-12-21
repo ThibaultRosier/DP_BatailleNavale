@@ -1,8 +1,8 @@
 package Controller;
 
-import model.server.Sauvegarde;
-import Vue.DialogNewSave;
-import Vue.VueFenetre;
+import Model.server.Sauvegarde;
+import vue.DialogNewSave;
+import vue.VueFenetre;
 
 import javax.swing.*;
 import java.awt.*;

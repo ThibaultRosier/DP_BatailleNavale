@@ -1,7 +1,6 @@
-package model.server.batiment.xxSiecle;
+package Model.server.batiment.xxSiecle;
 
-import model.server.Joueur;
-import model.server.batiment.GrandBatiment;
+import Model.server.batiment.GrandBatiment;
 
 public class Croiseur extends GrandBatiment{
 

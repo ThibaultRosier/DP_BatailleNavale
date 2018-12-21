@@ -1,7 +1,7 @@
-package model.server.batiment;
+package Model.server.batiment;
 
-import model.server.Case;
-import model.server.Joueur;
+import Model.server.Joueur;
+import Model.server.Case;
 
 public abstract class Batiment implements Cloneable {
 	
@@ -14,7 +14,7 @@ public abstract class Batiment implements Cloneable {
 	
 	protected int nbVie;//combien de fois il faut le toucher avant qu'il coule
 
-	protected  Joueur joueur;
+	protected Joueur joueur;
 
 	protected Case debutBatiment = null;
 	protected boolean vertical;

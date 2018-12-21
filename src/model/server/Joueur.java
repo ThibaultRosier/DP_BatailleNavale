@@ -1,15 +1,13 @@
-package model.server;
+package Model.server;
 
-import model.server.Camp;
-import model.server.batiment.xviSiecle.Flute;
-import model.server.batiment.xviSiecle.Gabare;
-import model.server.batiment.xviSiecle.Galions;
-import model.server.batiment.xxSiecle.Croiseur;
-import model.server.batiment.xxSiecle.Destroyer;
-import model.server.batiment.xxSiecle.LandingShipDock;
+import Model.server.batiment.xviSiecle.Gabare;
+import Model.server.batiment.xviSiecle.Flute;
+import Model.server.batiment.xviSiecle.Galions;
+import Model.server.batiment.xxSiecle.Croiseur;
+import Model.server.batiment.xxSiecle.Destroyer;
+import Model.server.batiment.xxSiecle.LandingShipDock;
 
 import java.io.Serializable;
-import java.util.Random;
 
 public class Joueur implements Serializable{
 
