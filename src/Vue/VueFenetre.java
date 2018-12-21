@@ -1,11 +1,10 @@
 package Vue;
 
-import Model.Sauvegarde;
+import model.server.Sauvegarde;
 
 import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
-import java.util.Date;
 
 public class VueFenetre extends JFrame {
 

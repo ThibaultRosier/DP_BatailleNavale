@@ -1,8 +1,10 @@
-package model;
+package model.server;
 
-import model.batiment.Batiment;
+import model.server.batiment.Batiment;
 
-public class Case {
+import java.io.Serializable;
+
+public class Case implements Serializable {
 
 	private Batiment batiment;
 	private boolean toucher;

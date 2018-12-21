@@ -1,6 +1,5 @@
-package Model;
+package model.server;
 
-import javax.swing.*;
 import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;

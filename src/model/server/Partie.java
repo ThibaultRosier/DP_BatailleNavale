@@ -1,17 +1,10 @@
-package model;
+package model.server;
 
-import model.batiment.Batiment;
-import model.batiment.xviSiecle.Flute;
-import model.batiment.xviSiecle.Gabare;
-import model.batiment.xviSiecle.Galions;
-import model.batiment.xxSiecle.Croiseur;
-import model.batiment.xxSiecle.Destroyer;
-import model.batiment.xxSiecle.LandingShipDock;
+import model.server.batiment.Batiment;
 
-import java.util.ArrayList;
-import java.util.Random;
+import java.io.Serializable;
 
-public class Partie {
+public class Partie implements Serializable {
 
 
 
@@ -61,13 +54,13 @@ public class Partie {
 
 
 	private void remplirCampXX(){
-		joueur1.remplirCampXX();
-		joueur2.remplirCampXX();
+		joueur1.chargerCampXX();
+		joueur2.chargerCampXX();
 	}
 
 	private void remplirCampXVI(){
-		joueur1.remplirCampXVI();
-		joueur2.remplirCampXVI();
+		joueur1.chargerCampXVI();
+		joueur2.chargerCampXVI();
 	}
 
 	
@@ -112,7 +105,7 @@ public class Partie {
 
 		string += joueur1.toString();
 
-		for(int j = 0; j < Joueur.LARGEUR_CAMP ; j++){
+		for(int j = 0; j < Camp.LARGEUR_CAMP ; j++){
 			string+="-";
 		}
 		string+="\n";

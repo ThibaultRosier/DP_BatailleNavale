@@ -1,17 +1,17 @@
-package model;
+package model.server;
 
-import model.batiment.Batiment;
-import model.batiment.xviSiecle.Flute;
-import model.batiment.xviSiecle.Gabare;
-import model.batiment.xviSiecle.Galions;
-import model.batiment.xxSiecle.Croiseur;
-import model.batiment.xxSiecle.Destroyer;
-import model.batiment.xxSiecle.LandingShipDock;
+import model.server.batiment.Batiment;
+import model.server.batiment.GrandBatiment;
+import model.server.batiment.MoyenBatiment;
+import model.server.batiment.PetitBatiment;
+import model.server.batiment.xviSiecle.Flute;
+import model.server.batiment.xviSiecle.Gabare;
+import model.server.batiment.xviSiecle.Galions;
 
 import java.util.ArrayList;
 import java.util.Random;
 
-public class Joueur {
+public class Camp {
 
     public final static int LARGEUR_CAMP = 10;
     public final static int HAUTEUR_CAMP = 10;
@@ -20,52 +20,38 @@ public class Joueur {
     private final static int NOMBRE_MOYEN = 3;
     private final static int NOMBRE_PETIT = 6;
 
-    private Case [][] campJoueur;
-    private Random random = new Random();
+    private Case[][] camp;
+    private Random random ;
+    private Joueur joueur;
 
-    private int nombreTireRestant = 0;
 
-    public   void remplirCampXX(){
+    public  Camp(Joueur j, GrandBatiment gb, MoyenBatiment mb , PetitBatiment pb){
+        joueur = j;
+        random = new Random();
         ArrayList<Batiment> lesBatiments = new ArrayList<Batiment>();
         for(int i = 0; i < NOMBRE_GRAND ; i++){
-            lesBatiments.add(new Croiseur(this));
+            lesBatiments.add((GrandBatiment)gb.clone());
         }
 
         for(int i = 0; i < NOMBRE_MOYEN ; i++){
-            lesBatiments.add(new Destroyer(this));
+            lesBatiments.add((MoyenBatiment)gb.clone());
         }
 
         for(int i = 0; i < NOMBRE_PETIT ; i++){
-            lesBatiments.add(new LandingShipDock(this));
+            lesBatiments.add((PetitBatiment)gb.clone());
         }
 
         remplirCamp(lesBatiments);
     }
 
-    public   void remplirCampXVI( ){
-        ArrayList<Batiment> lesBatiments = new ArrayList<Batiment>();
-        for(int i = 0; i < NOMBRE_GRAND ; i++){
-            lesBatiments.add(new Galions(this));
-        }
-
-        for(int i = 0; i < NOMBRE_MOYEN ; i++){
-            lesBatiments.add(new Flute(this));
-        }
-
-        for(int i = 0; i < NOMBRE_PETIT ; i++){
-            lesBatiments.add(new Gabare(this));
-        }
-
-        remplirCamp(lesBatiments);
-    }
 
     private  void remplirCamp(ArrayList<Batiment> lesBatiments ){
         boolean placer = false;
         int direction,x,y;
-        campJoueur = new Case[HAUTEUR_CAMP][LARGEUR_CAMP];
+        camp = new Case[HAUTEUR_CAMP][LARGEUR_CAMP];
         for(int i = 0; i < HAUTEUR_CAMP ; i++){
             for(int j = 0; j < LARGEUR_CAMP ; j++){
-                campJoueur[i][j] = new Case(j,i);
+                camp[i][j] = new Case(j,i);
             }
         }
         Batiment batiActu ;
@@ -78,9 +64,9 @@ public class Joueur {
                 x = random.nextInt(LARGEUR_CAMP);
                 y = random.nextInt(HAUTEUR_CAMP);
                 if (direction == 0) {
-                    placer = mettreBatimentHorizontal(campJoueur,campJoueur[y][x],batiActu);
+                    placer = mettreBatimentHorizontal(camp[y][x],batiActu);
                 } else {
-                    placer = mettreBatimentVertical(campJoueur,campJoueur[y][x],batiActu);
+                    placer = mettreBatimentVertical(camp[y][x],batiActu);
                 }
             }
         }
@@ -88,7 +74,7 @@ public class Joueur {
 
 
 
-    private boolean mettreBatimentHorizontal(Case[][] camp ,Case c,Batiment b){
+    private boolean mettreBatimentHorizontal(Case c,Batiment b){
         int x = c.getX();
         int y = c.getY();
         if(x + b.getTaille() < LARGEUR_CAMP){
@@ -102,13 +88,13 @@ public class Joueur {
             for(int i = x; i < x+b.getTaille();i++){
                 camp[y][i].setBatiment(b);
             }
-            nombreTireRestant += b.getTirRestant();
+            b.chargerTire(joueur);
             return true;
         }
         return false;
     }
 
-    private boolean mettreBatimentVertical(Case[][] camp ,Case c,Batiment b){
+    private boolean mettreBatimentVertical(Case c,Batiment b){
         int x = c.getX();
         int y = c.getY();
         if(y + b.getTaille() < HAUTEUR_CAMP){
@@ -122,36 +108,13 @@ public class Joueur {
             for(int i = y; i < y+b.getTaille();i++){
                 camp[i][x].setBatiment(b);
             }
-            nombreTireRestant += b.getTirRestant();
+            b.chargerTire(joueur);
             return true;
         }
         return false;
     }
 
-    public int getNombreTireRestant(){
-        return nombreTireRestant;
-    }
-
-    public void enleverTir(int tirEnMoins){
-        nombreTireRestant-=tirEnMoins;
-    }
-
-    public void ajouterTire(int nbTire){
-        nombreTireRestant += nbTire;
-    }
-    public String toString(){
-        String string = "";
-
-        for(int i = 0; i < HAUTEUR_CAMP ; i++){
-            for(int j = 0; j < LARGEUR_CAMP ; j++){
-                if(campJoueur[i][j].getBatiment() != null){
-                    string+="B";
-                }else{
-                    string+="O";
-                }
-            }
-            string+="\n";
-        }
-        return string;
+    public Case[][] getCamp() {
+        return camp;
     }
 }

@@ -1,9 +1,10 @@
-package model;
+package model.server;
 
-public class IA extends Joueur{
+public class IA extends Joueur {
+
 
 	public Case strategie1(){
-		Case c =null;
+		Case c = null;
 		
 		return c;
 		

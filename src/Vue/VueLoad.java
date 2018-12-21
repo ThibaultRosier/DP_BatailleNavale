@@ -1,13 +1,12 @@
 package Vue;
 
 import Controller.ControllerVueLoad;
-import Model.Sauvegarde;
+import model.server.Sauvegarde;
 
 import javax.swing.*;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
-import java.sql.Savepoint;
 import java.util.ArrayList;
 
 public class VueLoad extends JPanel {
