@@ -2,38 +2,39 @@ package model.server;
 
 import model.server.batiment.Batiment;
 import model.service.Case;
+import model.service.IPartie;
 
 import java.rmi.RemoteException;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 
-public class Partie extends UnicastRemoteObject {
+public class Partie extends UnicastRemoteObject implements IPartie{
 
 
 
 	public final static int NORMAL = 100;
 	public final static int MASTER = 101;
 
-	private static int TYPE_PARTIE;
 
 	public final static int XX = 0;
 	public final static int XVI = 1;
 
-	private static int EPOQUE;
-
-
+	public static int Epoque = -1;
+	public static int Type_Partie = -1;
 
 	private Joueur joueur1;
 	private Joueur joueur2;
-	
-	private static Partie laPartie = null;
+
+	private static Partie partieEnCour = null;
 
 
-	public Partie() throws RemoteException {
+	private Partie(int epoque,int type_Partie) throws RemoteException {
 		super();
 		joueur2 = new Joueur();
 		joueur1 = new Joueur();
-		if(TYPE_PARTIE == NORMAL || TYPE_PARTIE == MASTER) {
-			switch (EPOQUE) {
+		if(type_Partie == NORMAL || type_Partie == MASTER) {
+			switch (epoque) {
 				case XX:
 					remplirCampXX();
 					break;
@@ -48,6 +49,12 @@ public class Partie extends UnicastRemoteObject {
 		}
 	}
 
+	public static Partie getPartieEnCour() throws RemoteException {
+		if( partieEnCour == null ){
+			partieEnCour = new Partie(Epoque,Type_Partie);
+		}
+		return partieEnCour;
+	}
 
 	private void remplirCampXX() throws RemoteException {
 		joueur1.chargerCampXX();
@@ -59,14 +66,6 @@ public class Partie extends UnicastRemoteObject {
 		joueur2.chargerCampXVI();
 	}
 
-	
-	public static void setEpoque(int epoq){
-		EPOQUE = epoq;
-	}
-
-	public static void setTypePartie(int type){
-		TYPE_PARTIE = type;
-	}
 
 	public void tire(Batiment b , Case c){
 		assert (b != null):" Aucun batiment selectionner le tire ne peut ce faire";
@@ -112,10 +111,17 @@ public class Partie extends UnicastRemoteObject {
 	}
 
 	public static void main(String [] args) throws RemoteException {
-		Partie partie = new Partie();
-		partie.remplirCampXVI();
-		System.out.println(partie);
+		try {
+			// create a RMI registry
+			Registry r = LocateRegistry.createRegistry(1099);
 
+			// create and publish car factory server object
+			Partie partieFactory = new Partie(XX,NORMAL);
+			r.rebind("partie", partieFactory);
+			System.err.println("CarFactoryServer is running.");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 }

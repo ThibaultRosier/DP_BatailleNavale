@@ -1,6 +1,6 @@
 package vue;
 
-import Controller.ControllerDialogNewSave;
+import controller.ControllerDialogNewSave;
 
 import javax.swing.*;
 import java.awt.*;

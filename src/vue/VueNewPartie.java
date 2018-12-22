@@ -1,7 +1,7 @@
 package vue;
 
 
-import Controller.ControllerVueNewPartie;
+import controller.ControllerVueNewPartie;
 
 import javax.swing.*;
 import java.awt.*;

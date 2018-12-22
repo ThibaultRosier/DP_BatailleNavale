@@ -1,25 +1,22 @@
-package Controller;
+package controller;
 
-import model.server.Sauvegarde;
-import vue.DialogNewSave;
 import vue.VueFenetre;
-import vue.VueOption;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
 
-public class ControllerVueOption implements ActionListener {
+public class ControllerVueMenu implements ActionListener {
 
-    JPanel jp;
-    String ope;
+    private String ope;
+    private JPanel jp;
 
-    public ControllerVueOption(String ope, VueOption vueOption) {
-        jp = vueOption;
+    public ControllerVueMenu(String ope, JPanel jp){
         this.ope = ope;
+        this.jp = jp;
     }
+
 
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -30,19 +27,21 @@ public class ControllerVueOption implements ActionListener {
         }
 
         switch(ope){
-            case "save":
-                frame.changerPanel("vueSave");
+            case "newPartie":
+                frame.changerPanel("vueNewPartie");
                 break;
 
-            case "retour":
-                frame.changerPanel("vueJeu");
+            case "load":
+                frame.changerPanel("vueLoad");
                 break;
 
-            case "quitter":
-                frame.changerPanel("vueMenuPrincipal");
+            case "quit":
+                frame.dispose();
                 break;
 
             default:
         }
+
+
     }
 }
