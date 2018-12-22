@@ -7,15 +7,15 @@ import java.awt.*;
 
 public class VueJeu extends JPanel {
 
-    private JLabel[][] tabPlateauDroite;
-    private JLabel[][] tabPlateauGauche;
+    private JButton[][] tabPlateauDroite;
+    private JButton[][] tabPlateauGauche;
 
     public VueJeu(){
 
         this.setLayout(new BorderLayout());
 
-        tabPlateauDroite = new JLabel[11][11];
-        tabPlateauGauche = new JLabel[11][11];
+        tabPlateauDroite = new JButton[11][11];
+        tabPlateauGauche = new JButton[11][11];
 
         JPanel plateauDroite = new JPanel();
         JPanel plateauGauche = new JPanel();
@@ -66,26 +66,29 @@ public class VueJeu extends JPanel {
         this.setVisible(true);
     }
 
-    public void creerPlateau(JPanel jp, JLabel[][] tab){
+    public void creerPlateau(JPanel jp, JButton[][] tab){
 
-        tab[0][0] = new JLabel();
+        tab[0][0] = new JButton();
         tab[0][0].setBorder(BorderFactory.createLineBorder(Color.black));
         tab[0][0].setBounds(0,0,50,50);
+        tab[0][0].setEnabled(false);
         jp.add(tab[0][0]);
 
         for(int j =1; j<11; j++){
-            tab[0][j] = new JLabel(j+"");
+            tab[0][j] = new JButton(j+"");
             tab[0][j].setHorizontalAlignment(JLabel.CENTER);
             tab[0][j].setBorder(BorderFactory.createLineBorder(Color.black));
             tab[0][j].setBounds(0,j*50,50,50);
+            tab[0][j].setEnabled(false);
             jp.add(tab[0][j]);
         }
 
         for(int i =1; i<11; i++){
-            tab[i][0] = new JLabel(Character.toString ((char)(64+i)));
+            tab[i][0] = new JButton(Character.toString ((char)(64+i)));
             tab[i][0].setHorizontalAlignment(JLabel.CENTER);
             tab[i][0].setBorder(BorderFactory.createLineBorder(Color.black));
             tab[i][0].setBounds(i*50,0,50,50);
+            tab[i][0].setEnabled(false);
             jp.add(tab[i][0]);
         }
 

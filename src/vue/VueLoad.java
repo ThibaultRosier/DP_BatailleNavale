@@ -1,6 +1,6 @@
-package Vue;
+package vue;
 
-import Controller.ControllerVueSave;
+import Controller.ControllerVueLoad;
 import model.server.Sauvegarde;
 
 import javax.swing.*;
@@ -9,11 +9,11 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class VueSave extends JPanel {
+public class VueLoad extends JPanel {
 
     ArrayList<Sauvegarde> lesSauvegardes;
 
-    public VueSave() {
+    public VueLoad() {
 
         lesSauvegardes = new ArrayList<>();
 
@@ -21,25 +21,21 @@ public class VueSave extends JPanel {
 
         setLayout(new BorderLayout());
 
-        JPanel nord = new JPanel();
+        JLabel loadLabel = new JLabel("Charger une partie");
+        loadLabel.setFont(new Font("Sans Serif", Font.PLAIN, 20));
 
-        JLabel saveLabel = new JLabel("Charger une partie");
-        saveLabel.setFont(new Font("Sans Serif", Font.PLAIN, 20));
-
-        JButton newSave = new JButton("Nouvelle Sauvegarde");
-
-        nord.add(saveLabel);
-        nord.add(newSave);
-
-        JButton save = new JButton("Sauvegarder");
+        JButton charger = new JButton("Charger");
         JButton retour = new JButton("Retour");
+        charger.addActionListener(new ControllerVueLoad("charger",this));
+        retour.addActionListener(new ControllerVueLoad("retour",this));
 
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new BoxLayout(buttonPanel,BoxLayout.LINE_AXIS));
-        buttonPanel.add(save);
+        buttonPanel.add(charger);
         buttonPanel.add(retour);
 
         JList liste = new JList();
+
         DefaultListModel listModel = new DefaultListModel();
 
         //Remplir le model
@@ -52,16 +48,11 @@ public class VueSave extends JPanel {
         //Donné le model à la liste
         liste.setModel(listModel);
 
-        newSave.addActionListener(new ControllerVueSave("newSave",this,liste));
-        save.addActionListener(new ControllerVueSave("save",this,liste));
-        retour.addActionListener(new ControllerVueSave("retour",this,liste));
-
-
         JScrollPane js = new JScrollPane(liste);
         js.createVerticalScrollBar();
 
 
-        add(nord,BorderLayout.NORTH);
+        add(loadLabel,BorderLayout.NORTH);
         add(js,BorderLayout.CENTER);
         add(buttonPanel,BorderLayout.SOUTH);
 

@@ -1,5 +1,8 @@
 package model.server;
 
+import model.server.Camp;
+
+
 import model.server.batiment.xviSiecle.Flute;
 import model.server.batiment.xviSiecle.Gabare;
 import model.server.batiment.xviSiecle.Galions;

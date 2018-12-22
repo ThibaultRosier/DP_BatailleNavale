@@ -1,7 +1,7 @@
 package model.server.batiment;
 
 import model.service.Case;
-import model.server.Joueur;
+import model.server.*;
 
 import java.io.Serializable;
 

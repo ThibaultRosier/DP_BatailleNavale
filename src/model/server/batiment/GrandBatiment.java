@@ -1,4 +1,6 @@
-package Model.server.batiment;
+package model.server.batiment;
+
+import model.server.batiment.Batiment;
 
 public abstract class GrandBatiment extends Batiment {
 	

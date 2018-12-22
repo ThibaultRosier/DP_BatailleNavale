@@ -1,6 +1,6 @@
-package Model.server.batiment.xxSiecle;
+package model.server.batiment.xxSiecle;
 
-import Model.server.batiment.MoyenBatiment;
+import model.server.batiment.MoyenBatiment;
 
 public class Destroyer extends MoyenBatiment {
 

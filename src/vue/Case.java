@@ -2,7 +2,7 @@ package vue;
 
 import javax.swing.*;
 
-public class Case extends JLabel{
+public class Case extends JButton{
 
     private int ligne,colonne;
 

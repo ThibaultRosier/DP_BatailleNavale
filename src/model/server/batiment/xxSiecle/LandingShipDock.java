@@ -1,6 +1,6 @@
-package Model.server.batiment.xxSiecle;
+package model.server.batiment.xxSiecle;
 
-import Model.server.batiment.PetitBatiment;
+import model.server.batiment.PetitBatiment;
 
 public class LandingShipDock extends PetitBatiment {
 

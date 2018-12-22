@@ -1,7 +1,8 @@
-package Vue;
+package vue;
 
-import Controller.ControllerVueNewPartie;
 //import Controller.ControllerVueOption;
+
+import Controller.ControllerVueOption;
 
 import javax.swing.*;
 import java.awt.*;
@@ -32,12 +33,15 @@ public class VueOption extends JPanel {
 
         JButton save = new JButton("Sauvegarder");
         JButton quit = new JButton("Quitter partie");
-        //save.addActionListener(new ControllerVueOption("save",this));
-        //quit.addActionListener(new ControllerVueOption("quitter",this));
+        JButton retour = new JButton("Retour");
+        save.addActionListener(new ControllerVueOption("save",this));
+        quit.addActionListener(new ControllerVueOption("quitter",this));
+        retour.addActionListener(new ControllerVueOption("retour",this));
 
         sud.setLayout(new GridLayout(1,2,100,100));
         sud.add(save);
         sud.add(quit);
+        sud.add(retour);
 
         this.setLayout(new BorderLayout());
         this.add(centre,BorderLayout.CENTER);

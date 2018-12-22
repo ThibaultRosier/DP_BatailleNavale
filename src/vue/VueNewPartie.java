@@ -1,4 +1,4 @@
-package Vue;
+package vue;
 
 
 import Controller.ControllerVueNewPartie;

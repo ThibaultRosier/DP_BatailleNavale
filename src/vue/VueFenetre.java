@@ -1,4 +1,4 @@
-package Vue;
+package vue;
 
 import model.server.Sauvegarde;
 
@@ -15,7 +15,7 @@ public class VueFenetre extends JFrame {
 
     public VueFenetre() {
         super("Master and Commander");
-        setSize(1000   , 1000);
+        setSize(1500   , 1000);
 
 
         //test save
@@ -70,6 +70,11 @@ public class VueFenetre extends JFrame {
             case "vueOption":
                 vueActu = new VueOption();
                 break;
+
+            case "vueJeu":
+                vueActu = new VueJeu();
+                break;
+
 
             default:
         }

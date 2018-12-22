@@ -1,4 +1,4 @@
-package Model.server.batiment;
+package model.server.batiment;
 
 public abstract class PetitBatiment extends Batiment {
 
