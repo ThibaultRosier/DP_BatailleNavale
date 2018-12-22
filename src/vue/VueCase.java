@@ -1,16 +1,17 @@
 package vue;
 
+import model.service.Case;
+
 import javax.swing.*;
 
 public class VueCase extends JButton{
 
-    private int ligne,colonne;
+    private Case c;
 
 
-    public VueCase(int ligne, int colonne, ImageIcon i) {
+    public VueCase(Case c, ImageIcon i) {
         super();
         super.setIcon(i);
-        this.ligne = ligne;
-        this.colonne = colonne;
+        this.c = c;
     }
 }

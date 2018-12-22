@@ -3,11 +3,13 @@ package model.server;
 import model.server.batiment.Batiment;
 import model.service.Case;
 import model.service.IPartie;
+import vue.Vue;
 
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.ArrayList;
 
 public class Partie extends UnicastRemoteObject implements IPartie{
 
@@ -29,12 +31,16 @@ public class Partie extends UnicastRemoteObject implements IPartie{
 	private Joueur joueur1;
 	private Joueur joueur2;
 
+	public static Case caseSelection;
+	public static Batiment batimentSelection;
+
 	private static Partie partieEnCour = null;
 
+	private ArrayList<Vue> lesVue;
 
 	private Partie(String epoque, String type_Partie) throws RemoteException {
 		super();
-
+        lesVue = new ArrayList<Vue>();
 		if(type_Partie.equals(NORMAL) || type_Partie.equals(MASTER)) {
             joueur2 = new Joueur();
             joueur1 = new Joueur();
@@ -51,27 +57,46 @@ public class Partie extends UnicastRemoteObject implements IPartie{
 	}
 
 
-	public void tire(Batiment b , Case c){
-		assert (b != null):" Aucun batiment selectionner le tire ne peut ce faire";
-		assert (c != null):"Aucunnne case cibler le tire ne peut ce faire";
+	public void ajouterVue(Vue v){
+	    lesVue.add(v);
+    }
 
-		if(b.getTirRestant() > 0) {
-			b.tir();
-			c.toucher();
+    public void update(){
+	    for(Vue v : lesVue){
+	        v.update();
+        }
+    }
+
+	public void tireMaster(){
+		assert (batimentSelection != null):" Aucun batiment selectionner le tire ne peut ce faire";
+		assert (caseSelection != null):"Aucunnne case cibler le tire ne peut ce faire";
+
+		if(batimentSelection.getTirRestant() > 0) {
+            batimentSelection.tir();
+            caseSelection.toucher();
 		}
+        update();
 	}
 
-	public void tire(Case c){
-		assert (c != null):"Aucunnne case cibler le tire ne peut ce faire";
+	public void tireNormal(){
+		assert (caseSelection != null):"Aucunnne case cibler le tire ne peut ce faire";
 
-		c.toucher();
+        caseSelection.toucher();
+        update();
 	}
+
+	public void deSelection(){
+        caseSelection = null;
+        batimentSelection = null;
+    }
 
 	public Joueur getGagnant() {
 		if(joueur1.getNombreTireRestant() <= 0){
+            update();
 			return joueur2;
 		}else {
 			if (joueur2.getNombreTireRestant() <= 0) {
+                update();
 				return  joueur1;
 			}
 		}

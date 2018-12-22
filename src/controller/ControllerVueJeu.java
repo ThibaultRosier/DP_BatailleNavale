@@ -14,10 +14,16 @@ public class ControllerVueJeu implements ActionListener {
 
     private JPanel vueJeu;
     private String ope;
+    private Partie p;
 
     public ControllerVueJeu(String ope, VueJeu vueJeu) {
         this.vueJeu = vueJeu;
         this.ope = ope;
+        try {
+            p = Partie.getPartieEnCour();
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -29,6 +35,7 @@ public class ControllerVueJeu implements ActionListener {
         }
         switch(ope){
             case "tirer":
+                p.tireNormal();
 
                 break;
 

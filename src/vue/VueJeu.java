@@ -1,5 +1,6 @@
 package vue;
 
+import controller.ControllerVueCase;
 import controller.ControllerVueJeu;
 import model.server.Camp;
 import model.server.Partie;
@@ -12,19 +13,24 @@ import javax.swing.*;
 import java.awt.*;
 import java.rmi.RemoteException;
 
-public class VueJeu extends JPanel {
+public class VueJeu extends JPanel implements Vue {
 
     private JButton[][] tabPlateauDroite;
     private JButton[][] tabPlateauGauche;
     private Partie partie;
     private Case[][] plateauBateaux;
     private Case[][] plateauTires;
+    private JPanel plateauDroite;
+    private JPanel plateauGauche;
+
 
     public VueJeu() throws RemoteException {
 
         this.setLayout(new BorderLayout());
 
         partie = Partie.getPartieEnCour();
+
+        partie.ajouterVue(this);
 
         Camp c = partie.getCampJoueur1();
         plateauBateaux = c.getCamp();
@@ -35,8 +41,8 @@ public class VueJeu extends JPanel {
         tabPlateauDroite = new JButton[11][11];
         tabPlateauGauche = new JButton[11][11];
 
-        JPanel plateauDroite = new JPanel();
-        JPanel plateauGauche = new JPanel();
+        plateauDroite = new JPanel();
+        plateauGauche = new JPanel();
 
         JPanel nord = new JPanel();
         JPanel sud = new JPanel();
@@ -61,7 +67,7 @@ public class VueJeu extends JPanel {
         JPgauche.add(plateauDroite,BorderLayout.CENTER);
 
         JButton tirer = new JButton("Tirer");
-        option.addActionListener(new ControllerVueJeu("tirer",this));
+        tirer.addActionListener(new ControllerVueJeu("tirer",this));
         sud.add(tirer);
 
         plateauDroite.setLayout(null);
@@ -71,8 +77,10 @@ public class VueJeu extends JPanel {
         plateauGauche.setPreferredSize(new Dimension(11*50,11*50));
 
 
-        creerPlateau(plateauDroite,tabPlateauDroite);
-        creerPlateau(plateauGauche,tabPlateauGauche);
+        creerBord(plateauDroite,tabPlateauDroite);
+        creerBord(plateauGauche,tabPlateauGauche);
+        creerPlateauTir(plateauDroite,tabPlateauDroite);
+        creerPlateauBateaux(plateauGauche,tabPlateauGauche);
 
 
         JSplitPane js = new JSplitPane(SwingConstants.VERTICAL, JPgauche, JPdroite);
@@ -84,7 +92,7 @@ public class VueJeu extends JPanel {
         this.setVisible(true);
     }
 
-    public void creerPlateau(JPanel jp, JButton[][] tab){
+    public void creerBord(JPanel jp,JButton[][] tab){
 
         tab[0][0] = new JButton();
         tab[0][0].setBorder(BorderFactory.createLineBorder(Color.black));
@@ -109,28 +117,42 @@ public class VueJeu extends JPanel {
             tab[i][0].setEnabled(false);
             jp.add(tab[i][0]);
         }
+    }
+
+    public void creerPlateauBateaux(JPanel jp, JButton[][] tab){
 
         for(int i =1; i<11; i++){
             for(int j =1; j<11; j++){
-                tab[i][j] = new VueCase(i,j,null);
+                tab[i][j] = new VueCase(plateauBateaux[i - 1][j - 1],null);
                 tab[i][j].setBackground(new Color(0,206,209));
-                if(tab.equals(tabPlateauGauche)) {
-                    if (plateauBateaux[i - 1][j - 1].getBatiment() instanceof PetitBatiment) {
-                        tab[i][j].setBackground(Color.GRAY);
-                    } else if (plateauBateaux[i - 1][j - 1].getBatiment() instanceof MoyenBatiment) {
-                        tab[i][j].setBackground(Color.DARK_GRAY);
-                    } else if (plateauBateaux[i - 1][j - 1].getBatiment() instanceof GrandBatiment) {
-                        tab[i][j].setBackground(Color.BLACK);
-                    }
+                if (plateauBateaux[i - 1][j - 1].getBatiment() instanceof PetitBatiment) {
+                    tab[i][j].setBackground(Color.GRAY);
+                } else if (plateauBateaux[i - 1][j - 1].getBatiment() instanceof MoyenBatiment) {
+                    tab[i][j].setBackground(Color.DARK_GRAY);
+                } else if (plateauBateaux[i - 1][j - 1].getBatiment() instanceof GrandBatiment) {
+                    tab[i][j].setBackground(Color.BLACK);
                 }
-                else{
-                    if (plateauTires[i - 1][j - 1].getToucher()) {
-                        if(plateauTires[i - 1][j - 1].getBatiment() == null){
-                            tab[i][j].setBackground(new Color(0,0,100));
-                        }
-                        else{
-                            tab[i][j].setBackground(new Color(133,6,6));
-                        }
+                tab[i][j].setBorder(BorderFactory.createLineBorder(Color.black));
+                tab[i][j].setBounds(i*50,j*50,50,50);
+                jp.add(tab[i][j]);
+            }
+        }
+    }
+
+
+    public void creerPlateauTir(JPanel jp, JButton[][] tab){
+
+        for(int i =1; i<11; i++){
+            for(int j =1; j<11; j++){
+                tab[i][j] = new VueCase(plateauTires[i - 1][j - 1],null);
+                tab[i][j].addActionListener(new ControllerVueCase(plateauTires[i - 1][j - 1]));
+                tab[i][j].setBackground(new Color(0,206,209));
+                if (plateauTires[i - 1][j - 1].getToucher()) {
+                    if(plateauTires[i - 1][j - 1].getBatiment() == null){
+                        tab[i][j].setBackground(new Color(0,0,100));
+                    }
+                    else{
+                        tab[i][j].setBackground(new Color(133,6,6));
                     }
                 }
                 tab[i][j].setBorder(BorderFactory.createLineBorder(Color.black));
@@ -138,5 +160,17 @@ public class VueJeu extends JPanel {
                 jp.add(tab[i][j]);
             }
         }
+    }
+
+    @Override
+    public void update() {
+        plateauDroite.removeAll();
+        plateauGauche.removeAll();
+
+        creerBord(plateauDroite,tabPlateauDroite);
+        creerBord(plateauGauche,tabPlateauGauche);
+        creerPlateauTir(plateauDroite,tabPlateauDroite);
+        creerPlateauBateaux(plateauGauche,tabPlateauGauche);
+        repaint();
     }
 }
