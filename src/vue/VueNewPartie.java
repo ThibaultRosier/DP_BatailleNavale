@@ -1,12 +1,11 @@
 package vue;
 
 
-import Controller.ControllerVueNewPartie;
+import controller.ControllerVueNewPartie;
 import model.server.Partie;
 
 import javax.swing.*;
 import java.awt.*;
-import java.rmi.RemoteException;
 
 public class VueNewPartie extends JPanel {
 
@@ -15,7 +14,7 @@ public class VueNewPartie extends JPanel {
     private JComboBox tirOrdi;
 
 
-    public VueNewPartie() throws RemoteException {
+    public VueNewPartie() {
 
         JPanel centre = new JPanel();
         centre.setLayout(new GridLayout(4,1,50,50));
@@ -36,7 +35,7 @@ public class VueNewPartie extends JPanel {
 
         JButton launch = new JButton("Lancer la partie");
         JButton retour = new JButton("Retour");
-        launch.addActionListener(new ControllerVueNewPartie("lancer",this));
+        launch.addActionListener(new ControllerVueNewPartie("lancer",typePartie,epoque, tirOrdi,this));
         retour.addActionListener(new ControllerVueNewPartie("retour",this));
 
         sud.setLayout(new GridLayout(1,2,100,100));

@@ -1,6 +1,6 @@
 package vue;
 
-import Controller.ControllerVueMenu;
+import controller.ControllerVueMenu;
 
 import javax.swing.*;
 import java.awt.*;

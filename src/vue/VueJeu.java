@@ -1,18 +1,36 @@
 package vue;
 
-import Controller.ControllerVueJeu;
+import controller.ControllerVueJeu;
+import model.server.Camp;
+import model.server.Partie;
+import model.server.batiment.GrandBatiment;
+import model.server.batiment.MoyenBatiment;
+import model.server.batiment.PetitBatiment;
+import model.service.Case;
 
 import javax.swing.*;
 import java.awt.*;
+import java.rmi.RemoteException;
 
 public class VueJeu extends JPanel {
 
     private JButton[][] tabPlateauDroite;
     private JButton[][] tabPlateauGauche;
+    private Partie partie;
+    private Case[][] plateauBateaux;
+    private Case[][] plateauTires;
 
-    public VueJeu(){
+    public VueJeu() throws RemoteException {
 
         this.setLayout(new BorderLayout());
+
+        partie = Partie.getPartieEnCour();
+
+        Camp c = partie.getCampJoueur1();
+        plateauBateaux = c.getCamp();
+
+        Camp c2 = partie.getCampJoueur2();
+        plateauTires = c2.getCamp();
 
         tabPlateauDroite = new JButton[11][11];
         tabPlateauGauche = new JButton[11][11];
@@ -94,7 +112,27 @@ public class VueJeu extends JPanel {
 
         for(int i =1; i<11; i++){
             for(int j =1; j<11; j++){
-                tab[i][j] = new Case(i,j,null);
+                tab[i][j] = new VueCase(i,j,null);
+                tab[i][j].setBackground(new Color(0,206,209));
+                if(tab.equals(tabPlateauGauche)) {
+                    if (plateauBateaux[i - 1][j - 1].getBatiment() instanceof PetitBatiment) {
+                        tab[i][j].setBackground(Color.GRAY);
+                    } else if (plateauBateaux[i - 1][j - 1].getBatiment() instanceof MoyenBatiment) {
+                        tab[i][j].setBackground(Color.DARK_GRAY);
+                    } else if (plateauBateaux[i - 1][j - 1].getBatiment() instanceof GrandBatiment) {
+                        tab[i][j].setBackground(Color.BLACK);
+                    }
+                }
+                else{
+                    if (plateauTires[i - 1][j - 1].getToucher()) {
+                        if(plateauTires[i - 1][j - 1].getBatiment() == null){
+                            tab[i][j].setBackground(new Color(0,0,100));
+                        }
+                        else{
+                            tab[i][j].setBackground(new Color(133,6,6));
+                        }
+                    }
+                }
                 tab[i][j].setBorder(BorderFactory.createLineBorder(Color.black));
                 tab[i][j].setBounds(i*50,j*50,50,50);
                 jp.add(tab[i][j]);

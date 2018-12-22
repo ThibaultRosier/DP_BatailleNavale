@@ -1,6 +1,6 @@
 package vue;
 
-import Controller.ControllerVueLoad;
+import controller.ControllerVueLoad;
 import model.server.Sauvegarde;
 
 import javax.swing.*;

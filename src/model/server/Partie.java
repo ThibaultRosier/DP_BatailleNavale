@@ -2,73 +2,54 @@ package model.server;
 
 import model.server.batiment.Batiment;
 import model.service.Case;
+import model.service.IPartie;
 
 import java.rmi.RemoteException;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 
-public class Partie extends UnicastRemoteObject {
+public class Partie extends UnicastRemoteObject implements IPartie{
 
 
 
-	public final static int NORMAL = 100;
-	public final static int MASTER = 101;
+	public final static String NORMAL = "Normal";
+	public final static String MASTER = "Master";
 
-	private static int TYPE_PARTIE;
 
-	public final static int XX = 0;
-	public final static int XVI = 1;
+	public final static String XX = "XX Siecle";
+	public final static String XVI = "XVI Siecle";
 
-	private static int EPOQUE;
-
-	public static String[] tabEpoque = {"XX Siecle","XVI siecle"};;
+	public static String[] tabEpoque = {"XX Siecle","XVI Siecle"};;
 	public static String[] tabTypePartie = {"Normal","Master"};;
 	public static String[] tabTireOrdi = {"super Con","tres con","con", "pas trop con","moyennement intelligent","thibault rosier"};
+	public static String EPOQUE = "";
+	public static String TYPEPARTIE = "";
 
 	private Joueur joueur1;
 	private Joueur joueur2;
-	
-	private static Partie laPartie = null;
+
+	private static Partie partieEnCour = null;
 
 
-	public Partie() throws RemoteException {
+	private Partie(String epoque, String type_Partie) throws RemoteException {
 		super();
-		joueur2 = new Joueur();
-		joueur1 = new Joueur();
-		if(TYPE_PARTIE == NORMAL || TYPE_PARTIE == MASTER) {
-			switch (EPOQUE) {
-				case XX:
-					remplirCampXX();
-					break;
-				case XVI:
-					remplirCampXVI();
-					break;
-				default:
-					assert (false) : "l'epoque definie n'existe pas le partie ne peut etre cree ";
-			}
+
+		if(type_Partie.equals(NORMAL) || type_Partie.equals(MASTER)) {
+            joueur2 = new Joueur();
+            joueur1 = new Joueur();
 		}else{
 			assert(false):"Le type de partie n'est pas definie la partie ne peut donc etre cree";
 		}
 	}
 
-
-	private void remplirCampXX() throws RemoteException {
-		joueur1.chargerCampXX();
-		joueur2.chargerCampXX();
+	public static Partie getPartieEnCour() throws RemoteException {
+		if( partieEnCour == null ){
+			partieEnCour = new Partie(EPOQUE, TYPEPARTIE);
+		}
+		return partieEnCour;
 	}
 
-	private void remplirCampXVI() throws RemoteException {
-		joueur1.chargerCampXVI();
-		joueur2.chargerCampXVI();
-	}
-
-	
-	public static void setEpoque(int epoq){
-		EPOQUE = epoq;
-	}
-
-	public static void setTypePartie(int type){
-		TYPE_PARTIE = type;
-	}
 
 	public void tire(Batiment b , Case c){
 		assert (b != null):" Aucun batiment selectionner le tire ne peut ce faire";
@@ -98,6 +79,14 @@ public class Partie extends UnicastRemoteObject {
 		return null;
 	}
 
+	public Camp getCampJoueur1(){
+	    return joueur1.getCampJoueur();
+    }
+
+    public Camp getCampJoueur2(){
+        return joueur2.getCampJoueur();
+    }
+
 	public String toString(){
 		String string = "";
 
@@ -114,10 +103,17 @@ public class Partie extends UnicastRemoteObject {
 	}
 
 	public static void main(String [] args) throws RemoteException {
-		Partie partie = new Partie();
-		partie.remplirCampXVI();
-		System.out.println(partie);
+		try {
+			// create a RMI registry
+			Registry r = LocateRegistry.createRegistry(1099);
 
+			// create and publish car factory server object
+			Partie partieFactory = new Partie("XX Siecle","NORMAL");
+			r.rebind("partie", partieFactory);
+			System.err.println("CarFactoryServer is running.");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 }

@@ -1,6 +1,6 @@
 package vue;
 
-import Controller.ControllerVueSave;
+import controller.ControllerVueSave;
 import model.server.Sauvegarde;
 
 import javax.swing.*;

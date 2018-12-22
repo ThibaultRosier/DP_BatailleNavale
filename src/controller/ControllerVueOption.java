@@ -1,23 +1,23 @@
-package Controller;
+package controller;
 
 import vue.VueFenetre;
+import vue.VueOption;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.rmi.RemoteException;
+public class ControllerVueOption implements ActionListener {
 
-public class ControllerVueMenu implements ActionListener {
+    JPanel jp;
+    String ope;
 
-    private String ope;
-    private JPanel jp;
-
-    public ControllerVueMenu(String ope, JPanel jp){
+    public ControllerVueOption(String ope, VueOption vueOption) {
+        jp = vueOption;
         this.ope = ope;
-        this.jp = jp;
     }
-
 
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -28,29 +28,31 @@ public class ControllerVueMenu implements ActionListener {
         }
 
         switch(ope){
-            case "newPartie":
+            case "save":
                 try {
-                    frame.changerPanel("vueNewPartie");
+                    frame.changerPanel("vueSave");
                 } catch (RemoteException e1) {
                     e1.printStackTrace();
                 }
                 break;
 
-            case "load":
+            case "retour":
                 try {
-                    frame.changerPanel("vueLoad");
+                    frame.changerPanel("vueJeu");
                 } catch (RemoteException e1) {
                     e1.printStackTrace();
                 }
                 break;
 
-            case "quit":
-                frame.dispose();
+            case "quitter":
+                try {
+                    frame.changerPanel("vueMenuPrincipal");
+                } catch (RemoteException e1) {
+                    e1.printStackTrace();
+                }
                 break;
 
             default:
         }
-
-
     }
 }

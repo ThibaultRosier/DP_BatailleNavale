@@ -1,8 +1,8 @@
 package vue;
 
-//import Controller.ControllerVueOption;
+//import controller.ControllerVueOption;
 
-import Controller.ControllerVueOption;
+import controller.ControllerVueOption;
 import model.server.Partie;
 
 import javax.swing.*;

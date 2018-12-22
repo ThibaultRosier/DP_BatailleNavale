@@ -1,9 +1,6 @@
 package model.server;
 
-import model.server.batiment.Batiment;
-import model.server.batiment.GrandBatiment;
-import model.server.batiment.MoyenBatiment;
-import model.server.batiment.PetitBatiment;
+import model.server.batiment.*;
 import model.service.Case;
 
 import java.rmi.RemoteException;
@@ -25,8 +22,12 @@ public class Camp extends UnicastRemoteObject {
     private Joueur joueur;
 
 
-    public Camp(Joueur j, GrandBatiment gb, MoyenBatiment mb , PetitBatiment pb) throws RemoteException {
+    public Camp(Joueur j, LesBatimentEpoque lbE) throws RemoteException {
         super();
+        GrandBatiment gb; MoyenBatiment mb ; PetitBatiment pb;
+        gb = lbE.getGrandBatiment();
+        mb = lbE.getMoyenBatiment();
+        pb = lbE.getPetitBatiment();
         joueur = j;
         random = new Random();
         ArrayList<Batiment> lesBatiments = new ArrayList<Batiment>();

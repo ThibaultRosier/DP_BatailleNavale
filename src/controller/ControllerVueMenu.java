@@ -1,4 +1,4 @@
-package Controller;
+package controller;
 
 import vue.VueFenetre;
 
@@ -8,12 +8,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.rmi.RemoteException;
 
-public class ControllerVueLoad implements ActionListener {
+public class ControllerVueMenu implements ActionListener {
 
     private String ope;
     private JPanel jp;
 
-    public ControllerVueLoad(String ope, JPanel jp){
+    public ControllerVueMenu(String ope, JPanel jp){
         this.ope = ope;
         this.jp = jp;
     }
@@ -28,16 +28,24 @@ public class ControllerVueLoad implements ActionListener {
         }
 
         switch(ope){
-            case "charger":
-
-                break;
-
-            case "retour":
+            case "newPartie":
                 try {
-                    frame.changerPanel("vueMenuPrincipal");
+                    frame.changerPanel("vueNewPartie");
                 } catch (RemoteException e1) {
                     e1.printStackTrace();
                 }
+                break;
+
+            case "load":
+                try {
+                    frame.changerPanel("vueLoad");
+                } catch (RemoteException e1) {
+                    e1.printStackTrace();
+                }
+                break;
+
+            case "quit":
+                frame.dispose();
                 break;
 
             default:
