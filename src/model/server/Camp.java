@@ -4,28 +4,29 @@ import model.server.batiment.Batiment;
 import model.server.batiment.GrandBatiment;
 import model.server.batiment.MoyenBatiment;
 import model.server.batiment.PetitBatiment;
-import model.server.batiment.xviSiecle.Flute;
-import model.server.batiment.xviSiecle.Gabare;
-import model.server.batiment.xviSiecle.Galions;
+import model.service.Case;
 
+import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class Camp {
+public class Camp extends UnicastRemoteObject {
 
     public final static int LARGEUR_CAMP = 10;
     public final static int HAUTEUR_CAMP = 10;
 
     private final static int NOMBRE_GRAND = 1;
-    private final static int NOMBRE_MOYEN = 1;
-    private final static int NOMBRE_PETIT = 1;
+    private final static int NOMBRE_MOYEN = 2;
+    private final static int NOMBRE_PETIT = 3;
 
     private Case[][] camp;
     private Random random ;
     private Joueur joueur;
 
 
-    public  Camp(Joueur j, GrandBatiment gb, MoyenBatiment mb , PetitBatiment pb){
+    public Camp(Joueur j, GrandBatiment gb, MoyenBatiment mb , PetitBatiment pb) throws RemoteException {
+        super();
         joueur = j;
         random = new Random();
         ArrayList<Batiment> lesBatiments = new ArrayList<Batiment>();
@@ -34,11 +35,11 @@ public class Camp {
         }
 
         for(int i = 0; i < NOMBRE_MOYEN ; i++){
-            lesBatiments.add(gb.clone());
+            lesBatiments.add(mb.clone());
         }
 
         for(int i = 0; i < NOMBRE_PETIT ; i++){
-            lesBatiments.add(gb.clone());
+            lesBatiments.add(pb.clone());
         }
 
         remplirCamp(lesBatiments);

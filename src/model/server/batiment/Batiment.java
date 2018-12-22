@@ -1,9 +1,11 @@
 package model.server.batiment;
 
-import model.server.Case;
+import model.service.Case;
 import model.server.Joueur;
 
-public abstract class Batiment implements Cloneable {
+import java.io.Serializable;
+
+public abstract class Batiment implements Cloneable,Serializable {
 	
 	protected int tirRestant;
 	protected int nbTire;

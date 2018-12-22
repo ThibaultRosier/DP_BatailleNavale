@@ -1,17 +1,18 @@
 package model.server;
 
-import model.server.Camp;
 import model.server.batiment.xviSiecle.Flute;
 import model.server.batiment.xviSiecle.Gabare;
 import model.server.batiment.xviSiecle.Galions;
 import model.server.batiment.xxSiecle.Croiseur;
 import model.server.batiment.xxSiecle.Destroyer;
 import model.server.batiment.xxSiecle.LandingShipDock;
+import model.service.Case;
 
 import java.io.Serializable;
-import java.util.Random;
+import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 
-public class Joueur implements Serializable{
+public class Joueur extends UnicastRemoteObject implements Serializable{
 
 
 
@@ -19,6 +20,9 @@ public class Joueur implements Serializable{
 
 
     private int nombreTireRestant = 0;
+
+    protected Joueur() throws RemoteException {
+    }
 
     public int getNombreTireRestant(){
         return nombreTireRestant;
@@ -32,18 +36,18 @@ public class Joueur implements Serializable{
         nombreTireRestant += nbTire;
     }
 
-    public void chargerCampXX(){
+    public void chargerCampXX() throws RemoteException {
         campJoueur = new Camp(this,new Croiseur(),new Destroyer(),new LandingShipDock());
     }
 
-    public void chargerCampXVI(){
+    public void chargerCampXVI() throws RemoteException {
         campJoueur = new Camp(this,new Galions(),new Flute(),new Gabare());
     }
 
 
     public String toString(){
         String string = "";
-        Case [][]camp = campJoueur.getCamp();
+        Case[][]camp = campJoueur.getCamp();
         for(int i = 0; i < Camp.HAUTEUR_CAMP ; i++){
             for(int j = 0; j < Camp.LARGEUR_CAMP ; j++){
                 if(camp[i][j].getBatiment() != null){
@@ -53,7 +57,7 @@ public class Joueur implements Serializable{
                         string += "B";
                     }
                 }else{
-                    string+="O";
+                    string+="|";
                 }
             }
             string+="\n";

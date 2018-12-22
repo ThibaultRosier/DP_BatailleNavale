@@ -1,5 +1,7 @@
 package model.server;
 
+import model.service.Case;
+
 public class IA extends Joueur {
 
 

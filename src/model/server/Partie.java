@@ -1,10 +1,12 @@
 package model.server;
 
 import model.server.batiment.Batiment;
+import model.service.Case;
 
-import java.io.Serializable;
+import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 
-public class Partie implements Serializable {
+public class Partie extends UnicastRemoteObject {
 
 
 
@@ -25,15 +27,9 @@ public class Partie implements Serializable {
 	
 	private static Partie laPartie = null;
 
-	public static Partie getPartie(){
 
-		if(laPartie == null){
-			laPartie = new Partie();
-		}
-		return laPartie;
-	}
-
-	private Partie(){
+	public Partie() throws RemoteException {
+		super();
 		joueur2 = new Joueur();
 		joueur1 = new Joueur();
 		if(TYPE_PARTIE == NORMAL || TYPE_PARTIE == MASTER) {
@@ -53,12 +49,12 @@ public class Partie implements Serializable {
 	}
 
 
-	private void remplirCampXX(){
+	private void remplirCampXX() throws RemoteException {
 		joueur1.chargerCampXX();
 		joueur2.chargerCampXX();
 	}
 
-	private void remplirCampXVI(){
+	private void remplirCampXVI() throws RemoteException {
 		joueur1.chargerCampXVI();
 		joueur2.chargerCampXVI();
 	}
@@ -115,7 +111,7 @@ public class Partie implements Serializable {
 		return string;
 	}
 
-	public static void main(String [] args){
+	public static void main(String [] args) throws RemoteException {
 		Partie partie = new Partie();
 		partie.remplirCampXVI();
 		System.out.println(partie);
