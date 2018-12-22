@@ -1,7 +1,6 @@
-package model.server.batiment.xviSiecle;
+package Model.server.batiment.xviSiecle;
 
-import model.server.Joueur;
-import model.server.batiment.MoyenBatiment;
+import Model.server.batiment.MoyenBatiment;
 
 public class Flute extends MoyenBatiment{
 

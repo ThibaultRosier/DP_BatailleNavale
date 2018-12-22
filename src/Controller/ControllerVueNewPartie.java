@@ -1,6 +1,6 @@
 package Controller;
 
-import Vue.VueFenetre;
+import vue.VueFenetre;
 
 import javax.swing.*;
 import java.awt.*;
@@ -32,7 +32,7 @@ public class ControllerVueNewPartie implements ActionListener {
                 break;
 
             case "lancer":
-                //frame.changerPanel("vueLoad");
+                frame.changerPanel("vueJeu");
                 break;
         }
     }

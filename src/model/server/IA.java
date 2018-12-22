@@ -1,4 +1,4 @@
-package model.server;
+package Model.server;
 
 import model.service.Case;
 

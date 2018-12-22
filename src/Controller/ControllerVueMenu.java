@@ -1,13 +1,11 @@
 package Controller;
 
-import Vue.VueFenetre;
-import Vue.VueNewPartie;
+import vue.VueFenetre;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
 
 public class ControllerVueMenu implements ActionListener {
 

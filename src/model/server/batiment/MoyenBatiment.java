@@ -1,6 +1,4 @@
-package model.server.batiment;
-
-import model.server.Joueur;
+package Model.server.batiment;
 
 public abstract class MoyenBatiment extends Batiment {
 	
