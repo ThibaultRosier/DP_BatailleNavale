@@ -20,7 +20,9 @@ public class Partie extends UnicastRemoteObject {
 
 	private static int EPOQUE;
 
-
+	public static String[] tabEpoque = {"XX Siecle","XVI siecle"};;
+	public static String[] tabTypePartie = {"Normal","Master"};;
+	public static String[] tabTireOrdi = {"super Con","tres con","con", "pas trop con","moyennement intelligent","thibault rosier"};
 
 	private Joueur joueur1;
 	private Joueur joueur2;

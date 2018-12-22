@@ -10,6 +10,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.rmi.RemoteException;
 
 public class ControllerVueOption implements ActionListener {
 
@@ -31,15 +32,27 @@ public class ControllerVueOption implements ActionListener {
 
         switch(ope){
             case "save":
-                frame.changerPanel("vueSave");
+                try {
+                    frame.changerPanel("vueSave");
+                } catch (RemoteException e1) {
+                    e1.printStackTrace();
+                }
                 break;
 
             case "retour":
-                frame.changerPanel("vueJeu");
+                try {
+                    frame.changerPanel("vueJeu");
+                } catch (RemoteException e1) {
+                    e1.printStackTrace();
+                }
                 break;
 
             case "quitter":
-                frame.changerPanel("vueMenuPrincipal");
+                try {
+                    frame.changerPanel("vueMenuPrincipal");
+                } catch (RemoteException e1) {
+                    e1.printStackTrace();
+                }
                 break;
 
             default:

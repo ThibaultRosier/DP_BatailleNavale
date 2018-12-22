@@ -6,6 +6,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.rmi.RemoteException;
 
 public class ControllerVueLoad implements ActionListener {
 
@@ -32,7 +33,11 @@ public class ControllerVueLoad implements ActionListener {
                 break;
 
             case "retour":
-                frame.changerPanel("vueMenuPrincipal");
+                try {
+                    frame.changerPanel("vueMenuPrincipal");
+                } catch (RemoteException e1) {
+                    e1.printStackTrace();
+                }
                 break;
 
             default:

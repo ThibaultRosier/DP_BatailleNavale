@@ -9,6 +9,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.rmi.RemoteException;
 
 public class ControllerVueSave implements ActionListener {
 
@@ -48,7 +49,11 @@ public class ControllerVueSave implements ActionListener {
                 break;
 
             case "retour":
-                frame.changerPanel("vueOption");
+                try {
+                    frame.changerPanel("vueOption");
+                } catch (RemoteException e1) {
+                    e1.printStackTrace();
+                }
                 break;
 
             case "newSave":

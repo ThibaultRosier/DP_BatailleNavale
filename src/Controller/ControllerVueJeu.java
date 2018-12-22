@@ -1,5 +1,6 @@
 package Controller;
 
+import model.server.Partie;
 import vue.VueFenetre;
 import vue.VueJeu;
 
@@ -7,6 +8,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.rmi.RemoteException;
 
 public class ControllerVueJeu implements ActionListener {
 
@@ -31,11 +33,14 @@ public class ControllerVueJeu implements ActionListener {
                 break;
 
             case "option":
-                frame.changerPanel("vueOption");
+                try {
+                    frame.changerPanel("vueOption");
+                } catch (RemoteException e1) {
+                    e1.printStackTrace();
+                }
                 break;
 
             default:
         }
-
     }
 }

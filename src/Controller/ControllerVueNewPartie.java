@@ -6,6 +6,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.rmi.RemoteException;
 
 public class ControllerVueNewPartie implements ActionListener {
 
@@ -28,11 +29,19 @@ public class ControllerVueNewPartie implements ActionListener {
 
         switch (ope) {
             case "retour":
-                frame.changerPanel("vueMenuPrincipal");
+                try {
+                    frame.changerPanel("vueMenuPrincipal");
+                } catch (RemoteException e1) {
+                    e1.printStackTrace();
+                }
                 break;
 
             case "lancer":
-                frame.changerPanel("vueJeu");
+                try {
+                    frame.changerPanel("vueJeu");
+                } catch (RemoteException e1) {
+                    e1.printStackTrace();
+                }
                 break;
         }
     }

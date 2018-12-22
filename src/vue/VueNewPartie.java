@@ -2,9 +2,11 @@ package vue;
 
 
 import Controller.ControllerVueNewPartie;
+import model.server.Partie;
 
 import javax.swing.*;
 import java.awt.*;
+import java.rmi.RemoteException;
 
 public class VueNewPartie extends JPanel {
 
@@ -13,16 +15,14 @@ public class VueNewPartie extends JPanel {
     private JComboBox tirOrdi;
 
 
-    public VueNewPartie() {
+    public VueNewPartie() throws RemoteException {
 
         JPanel centre = new JPanel();
         centre.setLayout(new GridLayout(4,1,50,50));
 
-        Object[] elements = new Object[]{"Element 1", "Element 2", "Element 3", "Element 4", "Element 5"};
-
-        typePartie = new JComboBox(elements);
-        epoque = new JComboBox(elements);
-        tirOrdi = new JComboBox(elements);
+        typePartie = new JComboBox(Partie.tabTypePartie);
+        epoque = new JComboBox(Partie.tabEpoque);
+        tirOrdi = new JComboBox(Partie.tabTireOrdi);
 
         typePartie.setPreferredSize(new Dimension(100,50));
         typePartie.setSize(new Dimension(100,50));

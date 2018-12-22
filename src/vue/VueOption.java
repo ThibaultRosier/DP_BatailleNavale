@@ -3,6 +3,7 @@ package vue;
 //import Controller.ControllerVueOption;
 
 import Controller.ControllerVueOption;
+import model.server.Partie;
 
 import javax.swing.*;
 import java.awt.*;
@@ -18,9 +19,7 @@ public class VueOption extends JPanel {
         JLabel option = new JLabel("Option de partie");
         option.setFont(new Font("Sans Serif", Font.PLAIN, 20));
 
-        Object[] elements = new Object[]{"Element 1", "Element 2", "Element 3", "Element 4", "Element 5"};
-
-        tirOrdi = new JComboBox(elements);
+        tirOrdi = new JComboBox(Partie.tabTireOrdi);
 
         tirOrdi.setPreferredSize(new Dimension(200,50));
         tirOrdi.setSize(new Dimension(200,50));

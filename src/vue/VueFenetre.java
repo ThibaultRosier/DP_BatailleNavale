@@ -1,10 +1,12 @@
 package vue;
 
+import model.server.Partie;
 import model.server.Sauvegarde;
 
 import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
+import java.rmi.RemoteException;
 
 public class VueFenetre extends JFrame {
 
@@ -16,7 +18,6 @@ public class VueFenetre extends JFrame {
     public VueFenetre() {
         super("Master and Commander");
         setSize(1500   , 1000);
-
 
         //test save
         Sauvegarde s = new Sauvegarde("test","X siecle","master");
@@ -46,7 +47,7 @@ public class VueFenetre extends JFrame {
         this.setDefaultCloseOperation(this.DISPOSE_ON_CLOSE);
     }
 
-    public void changerPanel(String vue){
+    public void changerPanel(String vue) throws RemoteException {
 
         remove(vueActu);
 
@@ -84,8 +85,7 @@ public class VueFenetre extends JFrame {
         revalidate();
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws RemoteException {
         new VueFenetre();
-
     }
 }
