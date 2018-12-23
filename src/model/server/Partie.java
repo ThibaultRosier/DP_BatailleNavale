@@ -104,6 +104,18 @@ public class Partie extends UnicastRemoteObject implements IPartie,Serializable{
         caseSelection = null;
         batimentSelection = null;
     }
+	public Joueur getGagnantNormal() {
+		if(joueur1.getNbBatiments() <= 0){
+			return joueur2;
+		}else {
+			if (joueur2.getNbBatiments() <= 0) {
+				return  joueur1;
+			}
+		}
+
+		return null;
+	}
+
 
 	public Joueur getGagnant() {
 		if(joueur1.getNombreTireRestant() <= 0){
@@ -117,6 +129,14 @@ public class Partie extends UnicastRemoteObject implements IPartie,Serializable{
 		}
 
 		return null;
+	}
+
+	public Joueur getJoueur1() {
+		return joueur1;
+	}
+
+	public IA getJoueur2() {
+		return joueur2;
 	}
 
 	public Camp getCampJoueur1(){

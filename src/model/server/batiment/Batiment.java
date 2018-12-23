@@ -71,9 +71,11 @@ public  class Batiment implements Cloneable,Serializable {
 	public void toucher(){
 		nbVie--;
 		if(nbVie <= 0){
+			if(!couler) {
+				joueur.enleverBatiment();
+			}
 			couler = true;
 			joueur.enleverTir(tirRestant);
-			joueur.enleverBatiment();
 			couler();
 		}
 	}

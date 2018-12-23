@@ -1,6 +1,7 @@
 package controller;
 
 import vue.VueFenetre;
+import vue.VueGagnant;
 
 import javax.swing.*;
 import java.awt.*;
@@ -45,7 +46,12 @@ public class ControllerVueMenu implements ActionListener {
                 break;
 
             case "quit":
-                frame.dispose();
+                //frame.dispose();
+                try {
+                    frame.changerPanel("vueGagnant");
+                } catch (RemoteException e1) {
+                    e1.printStackTrace();
+                }
                 break;
 
             default:

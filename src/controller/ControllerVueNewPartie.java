@@ -51,8 +51,10 @@ public class ControllerVueNewPartie implements ActionListener {
 
             case "lancer":
                 try {
+                    Partie.setPartieEnCour(null);
                     Partie.EPOQUE = (String)epoque.getSelectedItem();
                     Partie.TYPEPARTIE = (String)typePartie.getSelectedItem();
+                    Partie p = Partie.getPartieEnCour();
                     frame.changerPanel("vueJeu");
                 } catch (RemoteException e1) {
                     e1.printStackTrace();
