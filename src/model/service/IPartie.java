@@ -1,5 +1,7 @@
 package model.service;
 
-public interface IPartie {
+import java.rmi.Remote;
+
+public interface IPartie extends Remote {
 
 }

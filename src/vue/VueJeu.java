@@ -125,12 +125,18 @@ public class VueJeu extends JPanel implements Vue {
             for(int j =1; j<11; j++){
                 tab[i][j] = new VueCase(plateauBateaux[i - 1][j - 1],null);
                 tab[i][j].setBackground(new Color(0,206,209));
-                if (plateauBateaux[i - 1][j - 1].getBatiment() instanceof PetitBatiment) {
-                    tab[i][j].setBackground(Color.GRAY);
-                } else if (plateauBateaux[i - 1][j - 1].getBatiment() instanceof MoyenBatiment) {
-                    tab[i][j].setBackground(Color.DARK_GRAY);
-                } else if (plateauBateaux[i - 1][j - 1].getBatiment() instanceof GrandBatiment) {
-                    tab[i][j].setBackground(Color.BLACK);
+                if(plateauBateaux[i - 1][j - 1].getToucher()){
+                    if(plateauBateaux[i - 1][j - 1].getBatiment() != null){
+                        tab[i][j].setBackground(new Color(133,6,6));
+                    }
+                }else {
+                    if (plateauBateaux[i - 1][j - 1].getBatiment() instanceof PetitBatiment) {
+                        tab[i][j].setBackground(Color.GRAY);
+                    } else if (plateauBateaux[i - 1][j - 1].getBatiment() instanceof MoyenBatiment) {
+                        tab[i][j].setBackground(Color.DARK_GRAY);
+                    } else if (plateauBateaux[i - 1][j - 1].getBatiment() instanceof GrandBatiment) {
+                        tab[i][j].setBackground(Color.BLACK);
+                    }
                 }
                 tab[i][j].setBorder(BorderFactory.createLineBorder(Color.black));
                 tab[i][j].setBounds(i*50,j*50,50,50);

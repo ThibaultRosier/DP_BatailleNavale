@@ -8,4 +8,5 @@ public abstract class GrandBatiment extends Batiment {
 		super(nbTir,nbVie,5);
 	}
 
+
 }
