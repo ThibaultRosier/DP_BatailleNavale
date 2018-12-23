@@ -46,12 +46,7 @@ public class ControllerVueMenu implements ActionListener {
                 break;
 
             case "quit":
-                //frame.dispose();
-                try {
-                    frame.changerPanel("vueGagnant");
-                } catch (RemoteException e1) {
-                    e1.printStackTrace();
-                }
+                frame.dispose();
                 break;
 
             default:
