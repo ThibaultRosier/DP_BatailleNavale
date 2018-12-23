@@ -45,11 +45,13 @@ public class ControllerVueLoad implements ActionListener {
                 listefichiers=repertoire.list();
                 try {
                     Partie.setPartieEnCour(Partie.deSerialize(listefichiers[s.getSelectedIndex()].substring(0, listefichiers[s.getSelectedIndex()].length() - 5)));
+                    frame.changerPanel("vueJeu");
                 } catch (IOException e1) {
                     e1.printStackTrace();
                 } catch (ClassNotFoundException e1) {
                     e1.printStackTrace();
                 }
+
                 break;
 
             case "retour":

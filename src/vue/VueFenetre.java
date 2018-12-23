@@ -78,6 +78,10 @@ public class VueFenetre extends JFrame {
                 vueActu = new VueJeu();
                 break;
 
+            case "vueGagnant":
+                vueActu = new VueGagnant();
+                break;
+
 
             default:
         }

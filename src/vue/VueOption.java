@@ -1,7 +1,5 @@
 package vue;
 
-//import controller.ControllerVueOption;
-
 import controller.ControllerVueOption;
 import model.server.Partie;
 

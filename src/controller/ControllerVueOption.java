@@ -1,5 +1,8 @@
 package controller;
 
+import model.server.Partie;
+import model.server.Sauvegarde;
+import vue.DialogNewSave;
 import vue.VueFenetre;
 import vue.VueOption;
 
@@ -9,6 +12,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.rmi.RemoteException;
+
 public class ControllerVueOption implements ActionListener {
 
     JPanel jp;
@@ -46,6 +50,7 @@ public class ControllerVueOption implements ActionListener {
 
             case "quitter":
                 try {
+                    Partie.setPartieEnCour(null);
                     frame.changerPanel("vueMenuPrincipal");
                 } catch (RemoteException e1) {
                     e1.printStackTrace();

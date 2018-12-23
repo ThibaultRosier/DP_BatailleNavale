@@ -64,6 +64,10 @@ public class Joueur extends UnicastRemoteObject implements Serializable{
         return campJoueur;
     }
 
+    public int getNbBatiments(){
+        return nbBatiment;
+    }
+
 
     public String toString(){
         String string = "";

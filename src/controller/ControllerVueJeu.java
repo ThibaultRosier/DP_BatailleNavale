@@ -36,7 +36,13 @@ public class ControllerVueJeu implements ActionListener {
         switch(ope){
             case "tirer":
                 p.tireNormal();
-
+                if(p.getGagnantNormal() != null){
+                    try {
+                        frame.changerPanel("vueGagnant");
+                    } catch (RemoteException e1) {
+                        e1.printStackTrace();
+                    }
+                }
                 break;
 
             case "option":
