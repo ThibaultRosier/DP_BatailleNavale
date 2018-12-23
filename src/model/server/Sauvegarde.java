@@ -7,7 +7,7 @@ import java.util.Date;
 
 public class Sauvegarde implements Serializable{
 
-    private String nom;
+    /*private String nom;
     private String epoque;
     private String typePartie;
     private Date date;
@@ -54,7 +54,7 @@ public class Sauvegarde implements Serializable{
 
     public void serialize(String name) throws IOException {
 
-        File fichier =  new File("./fichier_sauvegarde/"+name+".save") ;
+        File fichier =  new File("./src/fichier_sauvegarde/"+name+".save") ;
 
         // ouverture d'un flux sur un fichier
         ObjectOutputStream oos =  new ObjectOutputStream(new FileOutputStream(fichier)) ;
@@ -66,7 +66,7 @@ public class Sauvegarde implements Serializable{
     public static Sauvegarde deSerialize(String name) throws IOException, ClassNotFoundException {
 
         // on simplifie le code en retirant la gestion des exceptions
-        File fichier =  new File("./fichier_sauvegarde/"+name+".save") ;
+        File fichier =  new File("./src/fichier_sauvegarde/"+name+".save") ;
 
         // ouverture d'un flux sur un fichier
         ObjectInputStream ois =  new ObjectInputStream(new FileInputStream(fichier)) ;
@@ -75,7 +75,7 @@ public class Sauvegarde implements Serializable{
         return (Sauvegarde) ois.readObject() ;
         //System.out.println(m) ;
 
-    }
+    }*/
 
 
 }

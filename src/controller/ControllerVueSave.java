@@ -1,8 +1,10 @@
 package controller;
 
+import model.server.Partie;
 import model.server.Sauvegarde;
 import vue.DialogNewSave;
 import vue.VueFenetre;
+import vue.VueSave;
 
 import javax.swing.*;
 import java.awt.*;
@@ -14,10 +16,10 @@ import java.rmi.RemoteException;
 public class ControllerVueSave implements ActionListener {
 
     private String ope;
-    private JPanel jp;
+    private VueSave jp;
     private JList liste;
 
-    public ControllerVueSave(String ope, JPanel jp, JList liste){
+    public ControllerVueSave(String ope, VueSave jp, JList liste){
         this.ope = ope;
         this.jp = jp;
         this.liste = liste;
@@ -35,9 +37,9 @@ public class ControllerVueSave implements ActionListener {
         switch(ope){
             case "save":
                 if(!liste.isSelectionEmpty()){
-                    Sauvegarde s = new Sauvegarde((Sauvegarde) liste.getSelectedValue());
+                    Partie p = ((Partie) liste.getSelectedValue());
                     try {
-                        s.serialize(((Sauvegarde)liste.getSelectedValue()).getNom());
+                        p.serialize(((Partie)liste.getSelectedValue()).getNom());
                     } catch (IOException e1) {
                         e1.printStackTrace();
                     }
@@ -57,7 +59,7 @@ public class ControllerVueSave implements ActionListener {
                 break;
 
             case "newSave":
-                new DialogNewSave();
+                new DialogNewSave(jp);
                 break;
 
             default:

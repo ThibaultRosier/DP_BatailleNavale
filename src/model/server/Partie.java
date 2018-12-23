@@ -5,15 +5,19 @@ import model.service.Case;
 import model.service.IPartie;
 import vue.Vue;
 
+import java.io.*;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
-public class Partie extends UnicastRemoteObject implements IPartie{
+public class Partie extends UnicastRemoteObject implements IPartie,Serializable{
 
-
+	private String nom;
+	private Date date;
 
 	public final static String NORMAL = "Normal";
 	public final static String MASTER = "Master";
@@ -54,6 +58,10 @@ public class Partie extends UnicastRemoteObject implements IPartie{
 			partieEnCour = new Partie(EPOQUE, TYPEPARTIE);
 		}
 		return partieEnCour;
+	}
+
+	public static void setPartieEnCour(Partie p){
+		partieEnCour = p;
 	}
 
 
@@ -119,7 +127,54 @@ public class Partie extends UnicastRemoteObject implements IPartie{
         return joueur2.getCampJoueur();
     }
 
-	public String toString(){
+	public String getNom() {
+		return nom;
+	}
+
+	public void setNom(String nom) {
+		this.nom = nom;
+	}
+
+	public Date getDate() {
+		return date;
+	}
+
+	public void setDate(Date date) {
+		this.date = date;
+	}
+
+	@Override
+	public String toString() {
+		return nom+"        "+EPOQUE+"      "+TYPEPARTIE+"        "+ new SimpleDateFormat("dd-MM-yyyy        HH:mm:ss").format(date);
+
+	}
+
+	public void serialize(String name) throws IOException {
+
+		File fichier =  new File("./src/fichier_sauvegarde/"+name+".save") ;
+
+		// ouverture d'un flux sur un fichier
+		ObjectOutputStream oos =  new ObjectOutputStream(new FileOutputStream(fichier)) ;
+
+		// sérialization de l'objet
+		oos.writeObject(this) ;
+	}
+
+	public static Partie deSerialize(String name) throws IOException, ClassNotFoundException {
+
+		// on simplifie le code en retirant la gestion des exceptions
+		File fichier =  new File("./src/fichier_sauvegarde/"+name+".save") ;
+
+		// ouverture d'un flux sur un fichier
+		ObjectInputStream ois =  new ObjectInputStream(new FileInputStream(fichier)) ;
+
+		// désérialization de l'objet
+		return (Partie) ois.readObject() ;
+		//System.out.println(m) ;
+
+	}
+
+	/*public String toString(){
 		String string = "";
 
 		string += joueur1.toString();
@@ -132,7 +187,7 @@ public class Partie extends UnicastRemoteObject implements IPartie{
 		string += joueur2.toString();
 
 		return string;
-	}
+	}*/
 
 	public static void main(String [] args) throws RemoteException {
 		try {
