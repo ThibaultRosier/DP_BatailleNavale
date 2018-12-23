@@ -29,7 +29,7 @@ public class Partie extends UnicastRemoteObject implements IPartie{
 	public static String TYPEPARTIE = "";
 
 	private Joueur joueur1;
-	private Joueur joueur2;
+	private IA joueur2;
 
 	public static Case caseSelection;
 	public static Batiment batimentSelection;
@@ -42,7 +42,7 @@ public class Partie extends UnicastRemoteObject implements IPartie{
 		super();
         lesVue = new ArrayList<Vue>();
 		if(type_Partie.equals(NORMAL) || type_Partie.equals(MASTER)) {
-            joueur2 = new Joueur();
+			joueur2 = new IA();
             joueur1 = new Joueur();
 		}else{
 			assert(false):"Le type de partie n'est pas definie la partie ne peut donc etre cree";
@@ -82,7 +82,14 @@ public class Partie extends UnicastRemoteObject implements IPartie{
 		assert (caseSelection != null):"Aucunnne case cibler le tire ne peut ce faire";
 
         caseSelection.toucher();
+		tireNormalOrdi();
         update();
+	}
+
+	private void tireNormalOrdi(){
+		joueur2.strategieAleatoire(joueur1.getCampJoueur().getCamp());
+		assert (caseSelection != null):"Aucunnne case cibler le tire ne peut ce faire";
+		caseSelection.toucher();
 	}
 
 	public void deSelection(){

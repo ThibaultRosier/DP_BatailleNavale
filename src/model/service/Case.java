@@ -20,6 +20,7 @@ public class Case implements Serializable {
 
 	public void setBatiment(Batiment batiment){
 		this.batiment = batiment;
+		batiment.ajouterCase(this);
 	}
 
 	public Batiment getBatiment() {
@@ -54,6 +55,10 @@ public class Case implements Serializable {
 			}
 		}
 		return false;
+	}
+
+	public String toString(){
+		return "("+x+","+y+")";
 	}
 
 }

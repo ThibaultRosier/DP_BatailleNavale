@@ -32,15 +32,15 @@ public class Camp extends UnicastRemoteObject {
         random = new Random();
         ArrayList<Batiment> lesBatiments = new ArrayList<Batiment>();
         for(int i = 0; i < NOMBRE_GRAND ; i++){
-            lesBatiments.add(gb.clone());
+            lesBatiments.add(new Batiment(gb));
         }
 
         for(int i = 0; i < NOMBRE_MOYEN ; i++){
-            lesBatiments.add(mb.clone());
+            lesBatiments.add(new Batiment(mb));
         }
 
         for(int i = 0; i < NOMBRE_PETIT ; i++){
-            lesBatiments.add(pb.clone());
+            lesBatiments.add(new Batiment(pb));
         }
 
         remplirCamp(lesBatiments);
@@ -61,6 +61,7 @@ public class Camp extends UnicastRemoteObject {
             placer = false;
             batiActu = lesBatiments.get(0);
             lesBatiments.remove(0);
+            batiActu.viderCase();
             while (!placer) {
                 direction = random.nextInt(2);
                 x = random.nextInt(LARGEUR_CAMP);
@@ -72,6 +73,8 @@ public class Camp extends UnicastRemoteObject {
                 }
             }
         }
+
+
     }
 
 
@@ -119,4 +122,6 @@ public class Camp extends UnicastRemoteObject {
     public Case[][] getCamp() {
         return camp;
     }
+
+
 }

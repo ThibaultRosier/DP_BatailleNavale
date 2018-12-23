@@ -5,6 +5,6 @@ import model.server.batiment.MoyenBatiment;
 public class Destroyer extends MoyenBatiment {
 
     public Destroyer() {
-        super(3,3);
+        super(2,3);
     }
 }

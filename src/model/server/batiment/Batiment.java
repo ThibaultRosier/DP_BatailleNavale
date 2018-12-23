@@ -4,8 +4,9 @@ import model.service.Case;
 import model.server.*;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
-public abstract class Batiment implements Cloneable,Serializable {
+public  class Batiment implements Cloneable,Serializable {
 	
 	protected int tirRestant;
 	protected int nbTire;
@@ -20,6 +21,7 @@ public abstract class Batiment implements Cloneable,Serializable {
 
 	protected Case debutBatiment = null;
 	protected boolean vertical;
+	protected ArrayList<Case> lesCaseDuBatiment;
 
 
 	public Batiment(int nbTire,int nbVie,int taille){
@@ -31,31 +33,39 @@ public abstract class Batiment implements Cloneable,Serializable {
 		this.nbVie = nbVie;
 		this.nbTire = nbTire;
 		this.taille = taille;
-        this.debutBatiment = debutBatiment;
+        this.debutBatiment = null;
         this.vertical = false;
 		tirRestant = nbTire;
+		lesCaseDuBatiment = new ArrayList<Case>();
+	}
+
+	public Batiment(Batiment b){
+		debutBatiment = null;
+		this.joueur = null;
+		couler = false;
+		this.nbVie = b.nbVie;
+		this.nbTire = b.nbTire;
+		this.taille = b.taille;
+		this.debutBatiment = null;
+		this.vertical = false;
+		tirRestant = b.nbTire;
+		lesCaseDuBatiment = new ArrayList<Case>();
 	}
 
 
-    public Batiment clone() {
-        Object o = null;
-        try {
-            // On récupère l'instance à renvoyer par l'appel de la
-            // méthode super.clone()
-            o = super.clone();
-        } catch(CloneNotSupportedException cnse) {
-            // Ne devrait jamais arriver car nous implémentons
-            // l'interface Cloneable
-            cnse.printStackTrace(System.err);
-        }
-        // on renvoie le clone
-        return (Batiment) o;
-    }
 
+    public void viderCase(){
+		lesCaseDuBatiment.clear();
+	}
+
+    public void ajouterCase(Case c){
+		lesCaseDuBatiment.add(c);
+	}
 
 	public void chargerTire(Joueur j){
 		joueur = j;
 		j.ajouterTire(nbTire);
+		j.ajouterBatiment();
 	}
 
 	public void toucher(){
@@ -63,6 +73,16 @@ public abstract class Batiment implements Cloneable,Serializable {
 		if(nbVie <= 0){
 			couler = true;
 			joueur.enleverTir(tirRestant);
+			joueur.enleverBatiment();
+			couler();
+		}
+	}
+
+	private void couler(){
+		for(Case c : lesCaseDuBatiment){
+			if(!c.getToucher()) {
+				c.toucher();
+			}
 		}
 	}
 
@@ -97,5 +117,16 @@ public abstract class Batiment implements Cloneable,Serializable {
 
 	public Case getDebutBatiment(){
 		return  debutBatiment;
+	}
+
+	public String toString(){
+		String aRenvoyer ="";
+
+		aRenvoyer += "  taille  : "+ taille +"  Case   -> ";
+		for(Case c : lesCaseDuBatiment){
+			aRenvoyer += c.toString()+" - ";
+		}
+
+		return aRenvoyer;
 	}
 }

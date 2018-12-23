@@ -25,6 +25,7 @@ public class Joueur extends UnicastRemoteObject implements Serializable{
 
 
     private int nombreTireRestant = 0;
+    private int nbBatiment = 0;
 
     public Joueur() throws RemoteException {
         switch (Partie.EPOQUE){
@@ -36,6 +37,14 @@ public class Joueur extends UnicastRemoteObject implements Serializable{
                 break;
         }
 
+    }
+
+    public void ajouterBatiment(){
+        nbBatiment++;
+    }
+
+    public void enleverBatiment(){
+        nbBatiment--;
     }
 
     public int getNombreTireRestant(){
