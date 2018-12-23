@@ -87,7 +87,7 @@ public class Partie extends UnicastRemoteObject implements IPartie{
 	}
 
 	private void tireNormalOrdi(){
-		joueur2.strategieAleatoire(joueur1.getCampJoueur().getCamp());
+		joueur2.strategieEnCroix(joueur1.getCampJoueur().getCamp());
 		assert (caseSelection != null):"Aucunnne case cibler le tire ne peut ce faire";
 		caseSelection.toucher();
 	}
