@@ -5,7 +5,7 @@ import model.server.batiment.GrandBatiment;
 public class Galions extends GrandBatiment {
 
     public Galions() {
-        super(4, 4);
+        super(1, 4);
     }
 
 }

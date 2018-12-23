@@ -64,7 +64,7 @@ public class Joueur extends UnicastRemoteObject implements Serializable{
         return campJoueur;
     }
 
-
+    
     public String toString(){
         String string = "";
         Case[][]camp = campJoueur.getCamp();
