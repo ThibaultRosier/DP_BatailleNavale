@@ -1,6 +1,5 @@
 package controller;
 
-import model.server.Partie;
 import model.server.Sauvegarde;
 import vue.DialogNewSave;
 import vue.VueFenetre;
@@ -50,7 +49,6 @@ public class ControllerVueOption implements ActionListener {
 
             case "quitter":
                 try {
-                    Partie.setPartieEnCour(null);
                     frame.changerPanel("vueMenuPrincipal");
                 } catch (RemoteException e1) {
                     e1.printStackTrace();
