@@ -1,6 +1,7 @@
 package vue;
 
 import controller.ControllerVueLoad;
+import model.server.Partie;
 import model.server.Sauvegarde;
 
 import javax.swing.*;
@@ -11,13 +12,13 @@ import java.util.ArrayList;
 
 public class VueLoad extends JPanel {
 
-    ArrayList<Sauvegarde> lesSauvegardes;
+    private ArrayList<Partie> lesSauvegardes;
 
     public VueLoad() {
 
         lesSauvegardes = new ArrayList<>();
 
-        chargerSave(new File("./fichier_sauvegarde"));
+        chargerSave(new File("./src/fichier_sauvegarde"));
 
         setLayout(new BorderLayout());
 
@@ -26,7 +27,6 @@ public class VueLoad extends JPanel {
 
         JButton charger = new JButton("Charger");
         JButton retour = new JButton("Retour");
-        charger.addActionListener(new ControllerVueLoad("charger",this));
         retour.addActionListener(new ControllerVueLoad("retour",this));
 
         JPanel buttonPanel = new JPanel();
@@ -48,9 +48,10 @@ public class VueLoad extends JPanel {
         //Donné le model à la liste
         liste.setModel(listModel);
 
+        charger.addActionListener(new ControllerVueLoad("charger",this,liste));
+
         JScrollPane js = new JScrollPane(liste);
         js.createVerticalScrollBar();
-
 
         add(loadLabel,BorderLayout.NORTH);
         add(js,BorderLayout.CENTER);
@@ -67,8 +68,8 @@ public class VueLoad extends JPanel {
         for(i=0;i<listefichiers.length;i++){
             if(listefichiers[i].endsWith(".save")){
                 try {
-                    if(Sauvegarde.deSerialize(listefichiers[i].substring(0, listefichiers[i].length() - 5))!= null) {
-                        lesSauvegardes.add(Sauvegarde.deSerialize(listefichiers[i].substring(0, listefichiers[i].length() - 5)));
+                    if(Partie.deSerialize(listefichiers[i].substring(0, listefichiers[i].length() - 5))!= null) {
+                        lesSauvegardes.add(Partie.deSerialize(listefichiers[i].substring(0, listefichiers[i].length() - 5)));
                     }
                 } catch (IOException e) {
                     e.printStackTrace();

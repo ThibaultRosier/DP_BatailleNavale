@@ -17,16 +17,18 @@ public class VueFenetre extends JFrame {
 
     public VueFenetre() {
         super("Master and Commander");
-        setSize(1500   , 1000);
 
-        //test save
+        this.setSize(1500   , 1000);
+        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+
+        /*//test save
         Sauvegarde s = new Sauvegarde("test","X siecle","master");
         try {
             s.serialize("test");
         } catch (IOException e) {
             e.printStackTrace();
         }
-        //fin test save
+        //fin test save*/
 
 
         setLayout(new GridBagLayout());

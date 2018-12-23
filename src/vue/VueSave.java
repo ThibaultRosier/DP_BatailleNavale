@@ -1,6 +1,7 @@
 package vue;
 
 import controller.ControllerVueSave;
+import model.server.Partie;
 import model.server.Sauvegarde;
 
 import javax.swing.*;
@@ -11,13 +12,13 @@ import java.util.ArrayList;
 
 public class VueSave extends JPanel {
 
-    ArrayList<Sauvegarde> lesSauvegardes;
+    private ArrayList<Partie> lesSauvegardes;
 
     public VueSave() {
 
         lesSauvegardes = new ArrayList<>();
 
-        chargerSave(new File("./fichier_sauvegarde"));
+        chargerSave(new File("./src/fichier_sauvegarde"));
 
         setLayout(new BorderLayout());
 
@@ -69,15 +70,15 @@ public class VueSave extends JPanel {
 
     }
 
-    private void chargerSave(File repertoire) {
+    public void chargerSave(File repertoire) {
         String [] listefichiers;
         int i;
         listefichiers=repertoire.list();
         for(i=0;i<listefichiers.length;i++){
             if(listefichiers[i].endsWith(".save")){
                 try {
-                    if(Sauvegarde.deSerialize(listefichiers[i].substring(0, listefichiers[i].length() - 5))!= null) {
-                        lesSauvegardes.add(Sauvegarde.deSerialize(listefichiers[i].substring(0, listefichiers[i].length() - 5)));
+                    if(Partie.deSerialize(listefichiers[i].substring(0, listefichiers[i].length() - 5))!= null) {
+                        lesSauvegardes.add(Partie.deSerialize(listefichiers[i].substring(0, listefichiers[i].length() - 5)));
                     }
                 } catch (IOException e) {
                     e.printStackTrace();
